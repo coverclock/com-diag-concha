@@ -20,7 +20,7 @@ int readDescriptorSource(Source * that) {
 		word = tp->back;
 		tp->back = EOF;
 	} else if (read(tp->fd, &data, 1) == 1) {
-		word = (unsigned)data;
+		word = (unsigned char)data;
 	} else {
 		word = EOF;
 	}
@@ -29,7 +29,7 @@ int readDescriptorSource(Source * that) {
 
 int pushDescriptorSource(Source * that, char data) {
 	DescriptorSource * tp = (DescriptorSource *)that;
-	return tp->back = (unsigned)data;
+	return tp->back = (unsigned char)data;
 }
 
 int closeDescriptorSource(Source * that) {

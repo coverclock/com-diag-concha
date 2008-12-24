@@ -14,7 +14,7 @@
 
 int writeDescriptorSink(Sink * that, char data) {
 	DescriptorSink * tp = (DescriptorSink *)that;
-	return (write(tp->fd, &data, 1) == 1) ? (unsigned)data : EOF;
+	return (write(tp->fd, &data, 1) == 1) ? (unsigned char)data : EOF;
 }
 
 int closeDescriptorSink(Sink * that) {
