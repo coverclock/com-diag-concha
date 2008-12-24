@@ -10,6 +10,7 @@
  */
 
 #include "FileDescriptorSource.h"
+#include <unistd.h>
 
 int readFileDescriptorSource(Source * that) {
 	FileDescriptorSource * tp = (FileDescriptorSource *)that;
