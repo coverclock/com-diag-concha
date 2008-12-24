@@ -1,6 +1,6 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
-#ifndef _H_COM_DIAG_CONCHA_FILESINK_
-#define _H_COM_DIAG_CONCHA_FILESINK_
+#ifndef _H_COM_DIAG_CONCHA_STREAMSINK_
+#define _H_COM_DIAG_CONCHA_STREAMSINK_
 
 /**
  * @file
@@ -14,15 +14,15 @@
 #include "Sink.h"
 #include <stdio.h>
 
-typedef struct FileSink FileSink;
+typedef struct StreamSink StreamSink;
 
-struct FileSink {
+struct StreamSink {
 	Sink sink;
     FILE * stream;
 };
 
-extern Sink * openFileSink(FileSink * that, FILE * stream);
-extern int writeFileSink(Sink * that, char data);
-extern int closeFileSink(Sink * that);
+extern Sink * openStreamSink(StreamSink * that, FILE * stream);
+extern int writeStreamSink(Sink * that, char data);
+extern int closeStreamSink(Sink * that);
 
 #endif

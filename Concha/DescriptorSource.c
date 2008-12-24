@@ -9,11 +9,11 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "FileDescriptorSource.h"
+#include "DescriptorSource.h"
 #include <unistd.h>
 
-int readFileDescriptorSource(Source * that) {
-	FileDescriptorSource * tp = (FileDescriptorSource *)that;
+int readDescriptorSource(Source * that) {
+	DescriptorSource * tp = (DescriptorSource *)that;
 	int word;
 	char data;
 	if (tp->back != EOF) {
@@ -27,20 +27,20 @@ int readFileDescriptorSource(Source * that) {
 	return word;
 }
 
-int pushFileDescriptorSource(Source * that, char data) {
-	FileDescriptorSource * tp = (FileDescriptorSource *)that;
+int pushDescriptorSource(Source * that, char data) {
+	DescriptorSource * tp = (DescriptorSource *)that;
 	return tp->back = (unsigned)data;
 }
 
-int closeFileDescriptorSource(Source * that) {
-	FileDescriptorSource * tp = (FileDescriptorSource *)that;
+int closeDescriptorSource(Source * that) {
+	DescriptorSource * tp = (DescriptorSource *)that;
 	return close(tp->fd);
 }
 
-Source * openFileDescriptorSource(FileDescriptorSource * that, int fd) {
-	that->source.read = &readFileDescriptorSource;
-	that->source.push = &pushFileDescriptorSource;
-	that->source.close = &closeFileDescriptorSource;
+Source * openDescriptorSource(DescriptorSource * that, int fd) {
+	that->source.read = &readDescriptorSource;
+	that->source.push = &pushDescriptorSource;
+	that->source.close = &closeDescriptorSource;
 	that->fd = fd;
 	that->back = EOF;
 	return (Source *)that;

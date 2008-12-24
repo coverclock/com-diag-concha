@@ -9,21 +9,21 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "FileSink.h"
+#include "StreamSink.h"
 
-int writeFileSink(Sink * that, char data) {
-	FileSink * tp = (FileSink *)that;
+int writeStreamSink(Sink * that, char data) {
+	StreamSink * tp = (StreamSink *)that;
 	return fputc((unsigned char)data, tp->stream);
 }
 
-int closeFileSink(Sink * that) {
-	FileSink * tp = (FileSink *)that;
+int closeStreamSink(Sink * that) {
+	StreamSink * tp = (StreamSink *)that;
 	return fclose(tp->stream);
 }
 
-Sink * openFileSink(FileSink * that, FILE * stream) {
-	that->sink.write = &writeFileSink;
-	that->sink.close = &closeFileSink;
+Sink * openStreamSink(StreamSink * that, FILE * stream) {
+	that->sink.write = &writeStreamSink;
+	that->sink.close = &closeStreamSink;
 	that->stream = stream;
 	return (Sink *)that;
 }
