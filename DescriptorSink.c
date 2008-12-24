@@ -9,22 +9,22 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "FileDescriptorSink.h"
+#include "DescriptorSink.h"
 #include <unistd.h>
 
-int writeFileDescriptorSink(Sink * that, char data) {
-	FileDescriptorSink * tp = (FileDescriptorSink *)that;
+int writeDescriptorSink(Sink * that, char data) {
+	DescriptorSink * tp = (DescriptorSink *)that;
 	return (write(tp->fd, &data, 1) == 1) ? (unsigned)data : EOF;
 }
 
-int closeFileDescriptorSink(Sink * that) {
-	FileDescriptorSink * tp = (FileDescriptorSink *)that;
+int closeDescriptorSink(Sink * that) {
+	DescriptorSink * tp = (DescriptorSink *)that;
 	return close(tp->fd);
 }
 
-Sink * openFileDescriptorSink(FileDescriptorSink * that, int fd) {
-	that->sink.write = &writeFileDescriptorSink;
-	that->sink.close = &closeFileDescriptorSink;
+Sink * openDescriptorSink(DescriptorSink * that, int fd) {
+	that->sink.write = &writeDescriptorSink;
+	that->sink.close = &closeDescriptorSink;
 	that->fd = fd;
 	return (Sink *)that;
 }

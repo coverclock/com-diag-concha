@@ -1,6 +1,6 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
-#ifndef _H_COM_DIAG_CONCHA_FILEDESCRIPTORSOURCE_
-#define _H_COM_DIAG_CONCHA_FILEDESCRIPTORSOURCE_
+#ifndef _H_COM_DIAG_CONCHA_DESCRIPTORSOURCE_
+#define _H_COM_DIAG_CONCHA_DESCRIPTORSOURCE_
 
 /**
  * @file
@@ -14,16 +14,16 @@
 #include "Source.h"
 #include <stdio.h>
 
-typedef struct FileSource FileSource;
+typedef struct StreamSource StreamSource;
 
-struct FileSource {
+struct StreamSource {
 	Source source;
     FILE * stream;
 };
 
-extern Source * openFileSource(FileSource * that, FILE * stream);
-extern int readFileSource(Source * that);
-extern int pushFileSource(Source * that, char data);
-extern int closeFileSource(Source * that);
+extern Source * openStreamSource(StreamSource * that, FILE * stream);
+extern int readStreamSource(Source * that);
+extern int pushStreamSource(Source * that, char data);
+extern int closeStreamSource(Source * that);
 
 #endif
