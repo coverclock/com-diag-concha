@@ -13,7 +13,7 @@
 
 int writeBufferSink(Sink * that, char data) {
 	BufferSink * tp = (BufferSink *)that;
-	return (tp->next < tp->past) ? (unsigned)(*(tp->next++) = data) : EOF;
+	return (tp->next < tp->past) ? (unsigned char)(*(tp->next++) = data) : EOF;
 }
 
 int closeBufferSink(Sink * that) {

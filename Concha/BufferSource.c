@@ -13,12 +13,12 @@
 
 int readBufferSource(Source * that) {
 	BufferSource * tp = (BufferSource *)that;
-	return (tp->next < tp->past) ? (unsigned)*(tp->next++) : EOF;
+	return (tp->next < tp->past) ? (unsigned char)*(tp->next++) : EOF;
 }
 
 int pushBufferSource(Source * that, char data) {
 	BufferSource * tp = (BufferSource *) that;
-	return (tp->next > tp->buffer) ? (unsigned)(*(--tp->next) = data) : EOF;
+	return (tp->next > tp->buffer) ? (unsigned char)(*(--tp->next) = data) : EOF;
 }
 
 int closeBufferSource(Source * that) {
