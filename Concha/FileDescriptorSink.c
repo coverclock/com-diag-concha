@@ -10,6 +10,7 @@
  */
 
 #include "FileDescriptorSink.h"
+#include <unistd.h>
 
 int writeFileDescriptorSink(Sink * that, char data) {
 	FileDescriptorSink * tp = (FileDescriptorSink *)that;

@@ -12,18 +12,18 @@
  */
 
 #include "Source.h"
+#include <stdio.h>
 
-typedef struct FileDescriptorSource FileDescriptorSource;
+typedef struct FileSource FileSource;
 
-struct FileDescriptorSource {
+struct FileSource {
 	Source source;
-	int fd;
-	int back;
+    FILE * stream;
 };
 
-extern Source * openFileDescriptorSource(FileDescriptorSource * that, int fd);
-extern int readFileDescriptorSource(Source * that);
-extern int pushFileDescriptorSource(Source * that, char data);
-extern int closeFileDescriptorSource(Source * that);
+extern Source * openFileSource(FileSource * that, FILE * stream);
+extern int readFileSource(Source * that);
+extern int pushFileSource(Source * that, char data);
+extern int closeFileSource(Source * that);
 
 #endif

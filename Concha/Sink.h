@@ -24,4 +24,7 @@ struct Sink {
 	int (*close)(Sink * that);
 };
 
+extern int writeSink(Sink * that, char data);
+extern int closeSink(Sink * that);
+
 #endif

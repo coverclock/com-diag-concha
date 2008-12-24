@@ -12,7 +12,6 @@
  */
 
 #include "Sink.h"
-#include <unistd.h>
 
 typedef struct FileDescriptorSink FileDescriptorSink;
 

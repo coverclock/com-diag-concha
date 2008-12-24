@@ -25,4 +25,8 @@ struct Source {
 	int (*close)(Source * that);
 };
 
+extern int readSource(Source * that);
+extern int pushSource(Source * that, char data);
+extern int closeSource(Source * that);
+
 #endif
