@@ -11,11 +11,7 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include <stdint.h>
-
-#ifndef EOF
-#define EOF (-1)
-#endif
+#include "Concha.h"
 
 typedef struct Source Source;
 

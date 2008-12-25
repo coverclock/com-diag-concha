@@ -17,7 +17,7 @@ int readBufferSource(Source * that) {
 }
 
 int pushBufferSource(Source * that, char data) {
-	BufferSource * tp = (BufferSource *) that;
+	BufferSource * tp = (BufferSource *)that;
 	return (tp->next > tp->buffer) ? (unsigned char)(*(--tp->next) = data) : EOF;
 }
 

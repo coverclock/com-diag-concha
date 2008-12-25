@@ -1,6 +1,6 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
-#ifndef _H_COM_DIAG_CONCHA_SINK_
-#define _H_COM_DIAG_CONCHA_SINK_
+#ifndef _H_COM_DIAG_CONCHA_CONCHA_
+#define _H_COM_DIAG_CONCHA_CONCHA_
 
 /**
  * @file
@@ -11,16 +11,14 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "Concha.h"
+#include <stdint.h>
 
-typedef struct Sink Sink;
+#ifndef EOF
+#define EOF (-1)
+#endif
 
-struct Sink {
-	int (*write)(Sink * that, char data);
-	int (*close)(Sink * that);
-};
-
-extern int writeSink(Sink * that, char data);
-extern int closeSink(Sink * that);
+#ifndef EOR
+#define EOR (-2147483648)
+#endif
 
 #endif
