@@ -1,6 +1,6 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
-#ifndef _H_COM_DIAG_CONCHA_DESCRIPTORSOURCE_
-#define _H_COM_DIAG_CONCHA_DESCRIPTORSOURCE_
+#ifndef _H_COM_DIAG_CONCHA_STREAMSOURCE_
+#define _H_COM_DIAG_CONCHA_STREAMSOURCE_
 
 /**
  * @file
