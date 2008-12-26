@@ -13,13 +13,11 @@
 
 #include "Source.h"
 
-typedef struct CompositeSource CompositeSource;
-
-struct CompositeSource {
+typedef struct CompositeSource {
 	Source source;
 	Source * primary;
 	Source * secondary;
-};
+} CompositeSource;
 
 extern Source * openCompositeSource(CompositeSource * that, Source * primary, Source * secondary);
 extern int readCompositeSource(Source * that);

@@ -34,10 +34,14 @@ int closeFletcher8Source(Source * that) {
 	return closeSource(tp->from);
 }
 
+static SourceVirtualTable vtable = {
+	readFletcher8Source,
+	pushFletcher8Source,
+	closeFletcher8Source
+};
+
 Source * openFletcher8Source(Fletcher8Source * that, Source * from) {
-	that->source.read = &readFletcher8Source;
-	that->source.push = &pushFletcher8Source;
-	that->source.close = &closeFletcher8Source;
+	that->source.vp = &vtable;
 	that->a = 0;
 	that->b = 0;
 	return (Source *)that;

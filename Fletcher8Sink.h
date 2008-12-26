@@ -14,14 +14,12 @@
 #include "Sink.h"
 #include <stdint.h>
 
-typedef struct Fletcher8Sink Fletcher8Sink;
-
-struct Fletcher8Sink {
+typedef struct Fletcher8Sink {
 	Sink sink;
     Sink * to;
     uint8_t a;
     uint8_t b;
-};
+} Fletcher8Sink;
 
 extern Sink * openFletcher8Sink(Fletcher8Sink * that, Sink * to);
 extern int writeFletcher8Sink(Sink * that, char data);

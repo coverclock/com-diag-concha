@@ -15,10 +15,14 @@
 
 typedef struct Source Source;
 
-struct Source {
+typedef struct SourceVirtualTable {
 	int (*read)(Source * that);
 	int (*push)(Source * that, char data);
 	int (*close)(Source * that);
+} SourceVirtualTable;
+
+struct Source {
+    SourceVirtualTable * vp;
 };
 
 extern int readSource(Source * that);

@@ -20,9 +20,13 @@ int closeBufferSink(Sink * that) {
 	return 0;
 }
 
+static SinkVirtualTable vtable = {
+	writeBufferSink,
+	closeBufferSink
+};
+
 Sink * openBufferSink(BufferSink * that, char * pointer, size_t bytes) {
-	that->sink.write = &writeBufferSink;
-	that->sink.close = &closeBufferSink;
+	that->sink.vp = &vtable;
 	that->buffer = pointer;
 	that->next = pointer;
 	that->past = pointer + bytes;

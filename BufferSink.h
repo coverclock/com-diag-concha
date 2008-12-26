@@ -14,14 +14,12 @@
 #include "Sink.h"
 #include <sys/types.h>
 
-typedef struct BufferSink BufferSink;
-
-struct BufferSink {
+typedef struct BufferSink {
 	Sink sink;
 	char * buffer;
 	char * next;
 	char * past;
-};
+} BufferSink;
 
 extern Sink * openBufferSink(BufferSink * that, char * pointer, size_t bytes);
 extern int writeBufferSink(Sink * that, char data);

@@ -14,13 +14,11 @@
 #include "Sink.h"
 #include <sys/types.h>
 
-typedef struct ExpanderSink ExpanderSink;
-
-struct ExpanderSink {
+typedef struct ExpanderSink {
 	Sink sink;
     Sink * primary;
     Sink * secondary;
-};
+} ExpanderSink;
 
 extern Sink * openExpanderSink(ExpanderSink * that, Sink * primary, Sink * secondary);
 extern int writeExpanderSink(Sink * that, char data);

@@ -13,13 +13,11 @@
 
 #include "Source.h"
 
-typedef struct DescriptorSource DescriptorSource;
-
-struct DescriptorSource {
+typedef struct DescriptorSource {
 	Source source;
 	int fd;
 	int back;
-};
+} DescriptorSource;
 
 extern Source * openDescriptorSource(DescriptorSource * that, int fd);
 extern int readDescriptorSource(Source * that);

@@ -12,9 +12,9 @@
 #include "Sink.h"
 
 int writeSink(Sink * that, char data) {
-	return (*(that->write))(that, data);
+	return (*(that->vp->write))(that, data);
 }
 
 int closeSink(Sink * that) {
-	return (*(that->close))(that);
+	return (*(that->vp->close))(that);
 }
