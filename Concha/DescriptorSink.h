@@ -13,12 +13,10 @@
 
 #include "Sink.h"
 
-typedef struct DescriptorSink DescriptorSink;
-
-struct DescriptorSink {
+typedef struct DescriptorSink {
 	Sink sink;
 	int fd;
-};
+} DescriptorSink;
 
 extern Sink * openDescriptorSink(DescriptorSink * that, int fd);
 extern int writeDescriptorSink(Sink * that, char data);

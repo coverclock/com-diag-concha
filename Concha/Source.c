@@ -12,13 +12,13 @@
 #include "Source.h"
 
 int readSource(Source * that) {
-	return (*(that->read))(that);
+	return (*(that->vp->read))(that);
 }
 
 int pushSource(Source * that, char data) {
-	return (*(that->push))(that, data);
+	return (*(that->vp->push))(that, data);
 }
 
 int closeSource(Source * that) {
-	return (*(that->close))(that);
+	return (*(that->vp->close))(that);
 }

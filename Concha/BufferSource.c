@@ -25,10 +25,14 @@ int closeBufferSource(Source * that) {
 	return 0;
 }
 
+static SourceVirtualTable vtable = {
+	readBufferSource,
+	pushBufferSource,
+	closeBufferSource
+};
+
 Source * openBufferSource(BufferSource * that, char * pointer, size_t bytes) {
-	that->source.read = &readBufferSource;
-	that->source.push = &pushBufferSource;
-	that->source.close = &closeBufferSource;
+	that->source.vp = &vtable;
 	that->buffer = pointer;
 	that->next = pointer;
 	that->past = pointer + bytes;

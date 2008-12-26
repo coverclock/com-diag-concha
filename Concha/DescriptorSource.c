@@ -37,10 +37,14 @@ int closeDescriptorSource(Source * that) {
 	return close(tp->fd);
 }
 
+static SourceVirtualTable vtable = {
+	readDescriptorSource,
+	pushDescriptorSource,
+	closeDescriptorSource
+};
+
 Source * openDescriptorSource(DescriptorSource * that, int fd) {
-	that->source.read = &readDescriptorSource;
-	that->source.push = &pushDescriptorSource;
-	that->source.close = &closeDescriptorSource;
+	that->source.vp = &vtable;
 	that->fd = fd;
 	that->back = EOF;
 	return (Source *)that;

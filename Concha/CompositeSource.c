@@ -38,10 +38,14 @@ int closeCompositeSource(Source * that) {
 	return 0;
 }
 
+static SourceVirtualTable vtable = {
+	readCompositeSource,
+	pushCompositeSource,
+	closeCompositeSource
+};
+
 Source * openCompositeSource(CompositeSource * that, Source * primary, Source * secondary) {
-	that->source.read = &readCompositeSource;
-	that->source.push = &pushCompositeSource;
-	that->source.close = &closeCompositeSource;
+	that->source.vp = &vtable;
 	that->primary = primary;
 	that->secondary = secondary;
 	return (Source *)that;

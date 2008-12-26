@@ -21,9 +21,13 @@ int closeStreamSink(Sink * that) {
 	return fclose(tp->stream);
 }
 
+static SinkVirtualTable vtable = {
+	writeStreamSink,
+	closeStreamSink
+};
+
 Sink * openStreamSink(StreamSink * that, FILE * stream) {
-	that->sink.write = &writeStreamSink;
-	that->sink.close = &closeStreamSink;
+	that->sink.vp = &vtable;
 	that->stream = stream;
 	return (Sink *)that;
 }

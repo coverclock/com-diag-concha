@@ -15,9 +15,13 @@
 
 typedef struct Sink Sink;
 
-struct Sink {
+typedef struct SinkVirtualTable {
 	int (*write)(Sink * that, char data);
 	int (*close)(Sink * that);
+} SinkVirtualTable;
+
+struct Sink {
+    SinkVirtualTable * vp;
 };
 
 extern int writeSink(Sink * that, char data);

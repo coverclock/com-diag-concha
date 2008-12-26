@@ -14,14 +14,12 @@
 #include "Source.h"
 #include <stdint.h>
 
-typedef struct Fletcher8Source Fletcher8Source;
-
-struct Fletcher8Source {
+typedef struct Fletcher8Source {
     Source source;
 	Source * from;
 	uint8_t a;
 	uint8_t b;
-};
+} Fletcher8Source;
 
 extern Source * openFletcher8Source(Fletcher8Source * that, Source * from);
 extern int readFletcher8Source(Source * that);

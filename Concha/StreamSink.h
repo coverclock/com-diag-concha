@@ -14,12 +14,10 @@
 #include "Sink.h"
 #include <stdio.h>
 
-typedef struct StreamSink StreamSink;
-
-struct StreamSink {
+typedef struct StreamSink {
 	Sink sink;
     FILE * stream;
-};
+} StreamSink;
 
 extern Sink * openStreamSink(StreamSink * that, FILE * stream);
 extern int writeStreamSink(Sink * that, char data);

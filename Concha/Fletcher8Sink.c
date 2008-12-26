@@ -23,9 +23,13 @@ int closeFletcher8Sink(Sink * that) {
 	return closeSink(tp->to);
 }
 
+static SinkVirtualTable vtable = {
+	writeFletcher8Sink,
+	closeFletcher8Sink
+};
+
 Sink * openFletcher8Sink(Fletcher8Sink * that, Sink * to) {
-	that->sink.write = &writeFletcher8Sink;
-	that->sink.close = &closeFletcher8Sink;
+	that->sink.vp = &vtable;
 	that->to = to;
 	that->a = 0;
 	that->b = 0;

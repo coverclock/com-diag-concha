@@ -14,12 +14,10 @@
 #include "Source.h"
 #include <stdio.h>
 
-typedef struct StreamSource StreamSource;
-
-struct StreamSource {
+typedef struct StreamSource {
 	Source source;
     FILE * stream;
-};
+} StreamSource;
 
 extern Source * openStreamSource(StreamSource * that, FILE * stream);
 extern int readStreamSource(Source * that);

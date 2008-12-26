@@ -37,9 +37,13 @@ int closeExpanderSink(Sink * that) {
     return ((pri == EOF) || (sec == EOF)) ? EOF : 0;
 }
 
+static SinkVirtualTable vtable = {
+	writeExpanderSink,
+	closeExpanderSink
+};
+
 Sink * openExpanderSink(ExpanderSink * that, Sink * primary, Sink * secondary) {
-	that->sink.write = &writeExpanderSink;
-	that->sink.close = &closeExpanderSink;
+	that->sink.vp = &vtable;
 	that->primary = primary;
 	that->secondary = secondary;
 	return (Sink *)that;

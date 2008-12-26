@@ -14,14 +14,12 @@
 #include "Source.h"
 #include <sys/types.h>
 
-typedef struct BufferSource BufferSource;
-
-struct BufferSource {
+typedef struct BufferSource {
 	Source source;
 	char * buffer;
 	char * next;
 	char * past;
-};
+} BufferSource;
 
 extern Source * openBufferSource(BufferSource * that, char * pointer, size_t bytes);
 extern int readBufferSource(Source * that);

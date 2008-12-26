@@ -27,10 +27,14 @@ int closeStreamSource(Source * that) {
 	return fclose(tp->stream);
 }
 
+static SourceVirtualTable vtable = {
+	readStreamSource,
+	pushStreamSource,
+	closeStreamSource
+};
+
 Source * openStreamSource(StreamSource * that, FILE * stream) {
-	that->source.read = &readStreamSource;
-	that->source.push = &pushStreamSource;
-	that->source.close = &closeStreamSource;
+	that->source.vp = &vtable;
 	that->stream = stream;
 	return (Source *)that;
 }

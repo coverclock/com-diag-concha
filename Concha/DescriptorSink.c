@@ -22,9 +22,13 @@ int closeDescriptorSink(Sink * that) {
 	return close(tp->fd);
 }
 
+static SinkVirtualTable vtable = {
+	writeDescriptorSink,
+	closeDescriptorSink
+};
+
 Sink * openDescriptorSink(DescriptorSink * that, int fd) {
-	that->sink.write = &writeDescriptorSink;
-	that->sink.close = &closeDescriptorSink;
+	that->sink.vp = &vtable;
 	that->fd = fd;
 	return (Sink *)that;
 }
