@@ -17,8 +17,8 @@
 #define EOF (-1)
 #endif
 
-#ifndef EOR
-#define EOR (-2147483648)
+#ifndef EOD
+#define EOD (-2)
 #endif
 
 #endif

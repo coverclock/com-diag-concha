@@ -12,6 +12,7 @@
  */
 
 #include "Concha.h"
+#include <sys/types.h>
 
 typedef struct Source Source;
 
