@@ -14,17 +14,17 @@ BUILD		=	0
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
 DATESTAMP	=	$(shell date +%Y%m%d)
 
-CFILES		=	$(wildcard *.c)
+UNITTESTS	=	$(wildcard unittest-*.c)
+CFILES		=	$(filter-out $(UNITTESTS),$(wildcard *.c))
 HFILES		=	$(wildcard *.h)
 
-OBJECTS		=	$(addsuffix .o,$(basename $(wildcard *.c)))
-BINARIES	=	
+OBJECTS		=	$(addsuffix .o,$(basename $(CFILES)))
+BINARIES	=	$(basename $(UNITTESTS))
 SCRIPTS		=	
-UNITTESTS	=	$(basename $(wildcard unittest-*.c))
 ARCHIVES	=	lib$(PROJECT).a
 SHARED		=	lib$(PROJECT).so.$(MAJOR).$(MINOR).$(BUILD)
 LIBRARIES	=	$(ARCHIVES) $(SHARED)
-PROGRAMS	=	$(SCRIPTS) $(BINARIES) $(UNITTESTS)
+PROGRAMS	=	$(SCRIPTS) $(BINARIES)
 
 CC		=	$(CROSS_COMPILE)gcc
 CXX		=	$(CROSS_COMPILE)g++
@@ -44,7 +44,11 @@ DOC_DIR		=	doc
 
 ########## Main Entry Points
 
-all:	$(PROGRAMS) $(LIBRARIES)
+all:	$(LIBRARIES) $(PROGRAMS)
+
+libraries:	$(LIBRARIES)
+
+binaries:	$(PROGRAMS)
 
 ########## Libraries
 
@@ -69,6 +73,9 @@ lib$(PROJECT).a:	$(OBJECTS)
 
 ########## Binaries
 
+unittest-one:	unittest-one.c lib$(PROJECT).so
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
 ########## Helpers
 
 backup:	../$(PROJECT).bak.tar.bz2
@@ -82,7 +89,7 @@ acquire:	$(HOME)/$(PROJECT)
 	svn co svn://uclibc.org/trunk/buildroot
 
 clean:
-	rm -f $(HOSTPROGRAMS) $(PROGRAMS) $(ARTIFACTS) *.o
+	rm -f $(PROGRAMS) $(LIBRARIES) *.o
 	rm -rf $(DOC_DIR)
 
 ########## Documentation
@@ -108,11 +115,6 @@ manpages:
 script:	$(SCRIPT).sh
 	cp $(SCRIPT).sh $(SCRIPT)
 	chmod 755 $(SCRIPT)
-
-patch:
-	cd $(BUILDROOT_DIR)
-	echo "diff -purN $(OLD) $(NEW)"
-	diff -purN $(OLD) $(NEW)
 
 ########## Directories
 
