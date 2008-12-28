@@ -11,14 +11,14 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include <stdint.h>
-
-#ifndef EOF
+#ifdef EOF
+#undef EOF
+#endif
 #define EOF (-1)
-#endif
 
-#ifndef EOD
-#define EOD (-2)
+#ifdef EOR
+#undef EOR
 #endif
+#define EOR (-2)
 
 #endif

@@ -99,20 +99,19 @@ unittest-six:	unittest-six.c
 unittest-seven:	unittest-seven.c
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
+unittest-eight:	unittest-eight.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
 unittest-suite:	unittest-suite.sh
 	cp $< $@; chmod 755 $@
 
 ########## Helpers
 
-backup:	../$(PROJECT).bak.tar.bz2
-	mv $(MVFLAGS) ../$(PROJECT).bak.tar.bz2 ../$(PROJECT).$(TIMESTAMP).tar.bz2
+backup:	../$(PROJECT).bak.tgz
+	mv $(MVFLAGS) ../$(PROJECT).bak.tgz ../$(PROJECT).$(TIMESTAMP).tgz
 
-../$(PROJECT).bak.tar.bz2:
-	tar cvjf - . > ../diminuto.bak.tar.bz2
-
-acquire:	$(HOME)/$(PROJECT)
-	cd $(HOME)/$(PROJECT)
-	svn co svn://uclibc.org/trunk/buildroot
+../$(PROJECT).bak.tgz:
+	tar cvzf - . > ../$(PROJECT).bak.tgz
 
 clean:
 	rm -f $(PROGRAMS) $(LIBRARIES) *.o
@@ -156,7 +155,12 @@ dist:	distribution
 distribution:
 	rm -rf $(TMPDIR)/$(PROJECT)-$(MAJOR).$(MINOR).$(BUILD)
 	svn export $(SVNURL) $(TMPDIR)/$(PROJECT)-$(MAJOR).$(MINOR).$(BUILD)
-	( cd $(TMPDIR); tar cvzf - $(PROJECT)-$(MAJOR).$(MINOR).$(BUILD) ) > $(TMPDIR)/$(PROJECT)-$(MAJOR).$(MINOR).$(BUILD).tar.gz
+	( cd $(TMPDIR); tar cvzf - $(PROJECT)-$(MAJOR).$(MINOR).$(BUILD) ) > $(TMPDIR)/$(PROJECT)-$(MAJOR).$(MINOR).$(BUILD).tgz
+
+########## Tests
+
+test:	unittest-suite
+	unittest-suite
 
 ########## Dependencies
 
