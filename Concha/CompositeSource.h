@@ -15,6 +15,7 @@
 
 typedef struct CompositeSource {
 	Source source;
+    Source * active;
 	Source * primary;
 	Source * secondary;
 } CompositeSource;

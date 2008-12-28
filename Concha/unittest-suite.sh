@@ -12,6 +12,11 @@ export PATH=$PATH:.
 	unittest-five || exit $?
 	unittest-six || exit $?
 	unittest-seven || exit $?
+	diff output1.txt output2.txt || exit $?
+	unittest-eight || exit $?
+	unittest-nine || exit $?
+	cat lesser.txt Makefile README.h > output3.txt
+	diff output.txt output3.txt || exit $?
 	exit 0
 )
 RC=$?
