@@ -1,4 +1,4 @@
-#! /bin/sh -x
+#! /bin/sh
 export LD_LIBRARY_PATH=.
 export PATH=$PATH:.
 (
