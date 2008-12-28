@@ -22,7 +22,7 @@ OBJECTS		=	$(addsuffix .o,$(basename $(CFILES)))
 BINARIES	=	$(basename $(UNITTESTS))
 SCRIPTS		=	
 ARCHIVES	=	lib$(PROJECT).a
-SHARED		=	lib$(PROJECT).so.$(MAJOR).$(MINOR).$(BUILD)
+SHARED		=	lib$(PROJECT).so lib$(PROJECT).so.$(MAJOR) lib$(PROJECT).so.$(MAJOR).$(MINOR) lib$(PROJECT).so.$(MAJOR).$(MINOR).$(BUILD)
 LIBRARIES	=	$(ARCHIVES) $(SHARED)
 PROGRAMS	=	$(SCRIPTS) $(BINARIES)
 

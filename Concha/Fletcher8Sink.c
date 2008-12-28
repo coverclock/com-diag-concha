@@ -20,7 +20,17 @@ int writeFletcher8Sink(Sink * that, char data) {
 
 int closeFletcher8Sink(Sink * that) {
 	Fletcher8Sink * tp = (Fletcher8Sink *)that;
-	return closeSink(tp->to);
+    int rc;
+    int result = 0;
+    if ((rc = writeFletcher8Sink(that, tp->a)) < 0) {
+        result = rc;
+    } else if ((rc = writeFletcher8Sink(that, tp->b)) < 0) {
+        result = rc;
+    }
+	if ((rc = closeSink(tp->to)) < 0) {
+        result = rc;
+    }
+    return result;
 }
 
 static SinkVirtualTable vtable = {

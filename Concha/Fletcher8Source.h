@@ -17,6 +17,10 @@
 typedef struct Fletcher8Source {
     Source source;
 	Source * from;
+    int eof;
+    uint8_t x;
+    uint8_t y;
+    uint8_t z;
 	uint8_t a;
 	uint8_t b;
 } Fletcher8Source;
