@@ -5,6 +5,7 @@
 
 ########## Variables
 
+ROOT		=	Concha
 PROJECT		=	concha
 
 MAJOR		=	0
@@ -39,7 +40,10 @@ MVFLAGS		=	-i
 LDFLAGS		=	-L. -Bdynamic -lconcha
 
 BROWSER		=	firefox
-DOC_DIR		=	doc
+DOCDIR		=	doc
+
+TMPDIR		=	/var/tmp
+SVNURL		=	svn://192.168.1.220/$(PROJECT)/trunk/$(ROOT)
 
 SCRIPT		=	dummy
 
@@ -112,16 +116,16 @@ acquire:	$(HOME)/$(PROJECT)
 
 clean:
 	rm -f $(PROGRAMS) $(LIBRARIES) *.o
-	rm -rf $(DOC_DIR)
+	rm -rf $(DOCDIR)
 
 ########## Documentation
 
-documentation:	$(DOC_DIR)/pdf
+documentation:	$(DOCDIR)/pdf
 	sed -e "s/\\\$$Name.*\\\$$/$(MAJOR).$(MINOR).$(BUILD)/" < doxygen.cf > doxygen-local.cf
 	doxygen doxygen-local.cf
-	( cd $(DOC_DIR)/latex; $(MAKE) refman.pdf; cp refman.pdf ../pdf )
-	cat $(DOC_DIR)/man/man3/*.3 | groff -man -Tps - > $(DOC_DIR)/pdf/manpages.ps
-	ps2pdf $(DOC_DIR)/pdf/manpages.ps $(DOC_DIR)/pdf/manpages.pdf
+	( cd $(DOCDIR)/latex; $(MAKE) refman.pdf; cp refman.pdf ../pdf )
+	cat $(DOCDIR)/man/man3/*.3 | groff -man -Tps - > $(DOCDIR)/pdf/manpages.ps
+	ps2pdf $(DOCDIR)/pdf/manpages.ps $(DOCDIR)/pdf/manpages.pdf
 
 browse:
 	$(BROWSER) file:doc/html/index.html
@@ -134,8 +138,8 @@ manpages:
 
 ########## Directories
 
-$(DOC_DIR)/pdf:
-	mkdir -p $(DOC_DIR)/pdf
+$(DOCDIR)/pdf:
+	mkdir -p $(DOCDIR)/pdf
 
 ########## Rules
 
@@ -144,6 +148,15 @@ $(DOC_DIR)/pdf:
 
 %.o:	%.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
+
+########## Distribution
+
+dist:	distribution
+
+distribution:
+	rm -rf $(TMPDIR)/$(PROJECT)-$(MAJOR).$(MINOR).$(BUILD)
+	svn export $(SVNURL) $(TMPDIR)/$(PROJECT)-$(MAJOR).$(MINOR).$(BUILD)
+	( cd $(TMPDIR); tar cvzf - $(PROJECT)-$(MAJOR).$(MINOR).$(BUILD) ) > $(TMPDIR)/$(PROJECT)-$(MAJOR).$(MINOR).$(BUILD).tar.gz
 
 ########## Dependencies
 
