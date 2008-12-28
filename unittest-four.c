@@ -29,6 +29,7 @@ int main(int argc, char * argv[]) {
     Source * source;
     Sink * sink;
     struct stat status;
+    FILE * file;
 
     if ((rc = stat("lesser.txt", &status)) < 0) {
         perror("stat");
@@ -42,7 +43,11 @@ int main(int argc, char * argv[]) {
         perror("malloc");
         return 3;
     }
-    if (fread(from, sizeof(char), status.st_size, stdin) != status.st_size) {
+    if ((file = fopen("lesser.txt", "r")) == (FILE *)0) {
+        perror("fopen");
+        return 5;
+    }
+    if (fread(from, sizeof(char), status.st_size, file) != status.st_size) {
         return 4;
     }
     if ((source = openBufferSource(&buffersource, from, status.st_size)) == (Source *)0) {
@@ -59,6 +64,12 @@ int main(int argc, char * argv[]) {
     }
     if (strncmp(from, to, status.st_size) != 0) {
         return 9;
+    }
+    if (closeSource(source) == EOF) {
+        return 10;
+    }
+    if (closeSink(sink) == EOF) {
+        return 11;
     }
     return 0;
 }

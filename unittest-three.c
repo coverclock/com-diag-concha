@@ -28,5 +28,11 @@ int main(int argc, char * argv[]) {
     if ((rc = source2sink(source, sink)) != EOF) {
         return 3;
     }
+    if (closeSource(source) == EOF) {
+        return 4;
+    }
+    if (closeSink(sink) == EOF) {
+        return 5;
+    }
     return 0;
 }
