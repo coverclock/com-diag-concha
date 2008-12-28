@@ -14,17 +14,16 @@ BUILD		=	0
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
 DATESTAMP	=	$(shell date +%Y%m%d)
 
-UNITTESTS	=	$(wildcard unittest-*.c)
+UNITTESTS	=	$(wildcard unittest-*.c) $(wildcard unittest-*.sh)
 CFILES		=	$(filter-out $(UNITTESTS),$(wildcard *.c))
+SHFILES		=	$(filter-out $(UNITTESTS),$(wildcard *.sh))
 HFILES		=	$(wildcard *.h)
 
 OBJECTS		=	$(addsuffix .o,$(basename $(CFILES)))
 BINARIES	=	$(basename $(UNITTESTS))
-SCRIPTS		=	
 ARCHIVES	=	lib$(PROJECT).a
 SHARED		=	lib$(PROJECT).so lib$(PROJECT).so.$(MAJOR) lib$(PROJECT).so.$(MAJOR).$(MINOR) lib$(PROJECT).so.$(MAJOR).$(MINOR).$(BUILD)
 LIBRARIES	=	$(ARCHIVES) $(SHARED)
-PROGRAMS	=	$(SCRIPTS) $(BINARIES)
 
 CC		=	$(CROSS_COMPILE)gcc
 CXX		=	$(CROSS_COMPILE)g++
@@ -42,13 +41,15 @@ LDFLAGS		=	-L. -Bdynamic -lconcha
 BROWSER		=	firefox
 DOC_DIR		=	doc
 
+SCRIPT		=	dummy
+
 ########## Main Entry Points
 
-all:	$(LIBRARIES) $(PROGRAMS)
+all:	libraries binaries
 
 libraries:	$(LIBRARIES)
 
-binaries:	$(PROGRAMS)
+binaries:	$(LIBRARIES) $(BINARIES)
 
 ########## Libraries
 
@@ -73,8 +74,29 @@ lib$(PROJECT).a:	$(OBJECTS)
 
 ########## Binaries
 
-unittest-one:	unittest-one.c lib$(PROJECT).so
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+unittest-one:	unittest-one.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-two:	unittest-two.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-three:	unittest-three.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-four:	unittest-four.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-five:	unittest-five.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-six:	unittest-six.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-seven:	unittest-seven.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-suite:	unittest-suite.sh
+	cp $< $@; chmod 755 $@
 
 ########## Helpers
 
@@ -109,12 +131,6 @@ refman:
 
 manpages:
 	$(BROWSER) file:doc/pdf/manpages.pdf
-
-########## Submakes
-
-script:	$(SCRIPT).sh
-	cp $(SCRIPT).sh $(SCRIPT)
-	chmod 755 $(SCRIPT)
 
 ########## Directories
 

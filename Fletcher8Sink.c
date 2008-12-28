@@ -22,9 +22,9 @@ int closeFletcher8Sink(Sink * that) {
 	Fletcher8Sink * tp = (Fletcher8Sink *)that;
     int rc;
     int result = 0;
-    if ((rc = writeFletcher8Sink(that, tp->a)) < 0) {
+    if ((rc = writeSink(tp->to, tp->a)) < 0) {
         result = rc;
-    } else if ((rc = writeFletcher8Sink(that, tp->b)) < 0) {
+    } else if ((rc = writeSink(tp->to, tp->b)) < 0) {
         result = rc;
     }
 	if ((rc = closeSink(tp->to)) < 0) {
