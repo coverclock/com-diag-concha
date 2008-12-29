@@ -48,11 +48,11 @@ int closeFletcher8Source(Source * that) {
 	Fletcher8Source * tp = (Fletcher8Source *)that;
     int rc;
     int result = 0;
-    if ((tp->a != tp->y) || (tp->b != tp->z)) {
-        result = EOF;
-    }
 	if ((rc = closeSource(tp->from)) < 0) {
         result = rc;
+    }
+    if ((tp->a != tp->y) || (tp->b != tp->z)) {
+        result = EOF;
     }
     return result;
 }
