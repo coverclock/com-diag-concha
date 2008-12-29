@@ -14,6 +14,14 @@
 #include "Source.h"
 #include "Sink.h"
 
+/**
+ * Execute part of a unit test by reading a data from a Source, pushing
+ * the data back into the Source, re-reading the data from the Source,
+ * and writing the data to the Sink.
+ * @param source points to the Source.
+ * @param sink points to a Sink.
+ * @return the number of octets transferred successfully or <0 otherwise.
+ */
 static int source2sink(Source * source, Sink * sink) {
     int data;
     int data2;

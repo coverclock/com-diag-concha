@@ -19,8 +19,27 @@ typedef struct StreamSink {
     FILE * stream;
 } StreamSink;
 
+/**
+ * Open a Stream Sink.
+ * @param that points to the Stream Sink.
+ * @param stream is an standard I/O stream opened for writing.
+ * @return a pointer to the Stream Source as a Source.
+ */
 extern Sink * openStreamSink(StreamSink * that, FILE * stream);
+
+/**
+ * Write an octet of data to the Sink.
+ * @param that points to the Sink.
+ * @param data is an octet to write into the Sink.
+ * @return data as an integer for success, <0 otherwise.
+ */
 extern int writeStreamSink(Sink * that, char data);
+
+/**
+ * Close the Sink. This calls fclose(3) on the stream.
+ * @param that points to the Sink.
+ * @return 0 for success, <0 otherwise.
+ */
 extern int closeStreamSink(Sink * that);
 
 #endif

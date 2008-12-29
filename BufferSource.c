@@ -31,10 +31,10 @@ static SourceVirtualTable vtable = {
 	closeBufferSource
 };
 
-Source * openBufferSource(BufferSource * that, char * pointer, size_t bytes) {
+Source * openBufferSource(BufferSource * that, char * buffer, size_t size) {
 	that->source.vp = &vtable;
-	that->buffer = pointer;
-	that->next = pointer;
-	that->past = pointer + bytes;
+	that->buffer = buffer;
+	that->next = buffer;
+	that->past = buffer + size;
 	return (Source *)that;
 }

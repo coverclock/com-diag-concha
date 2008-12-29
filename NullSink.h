@@ -18,8 +18,26 @@ typedef struct NullSink {
 	Sink sink;
 } NullSink;
 
+/**
+ * Open a Null Sink. The Sink always accepts data octets.
+ * @param that points to the Null Sink.
+ * @return a pointer to the Null Sink as a Sink.
+ */
 extern Sink * openNullSink(NullSink * that);
+
+/**
+ * Write an octet of data to the Sink.
+ * @param that points to the Sink.
+ * @param data is an octet to write into the Sink.
+ * @return data as an integer always.
+ */
 extern int writeNullSink(Sink * that, char data);
+
+/**
+ * Close the Sink. This has no effect on the Null Sink.
+ * @param that points to the Sink.
+ * @return 0 always.
+ */
 extern int closeNullSink(Sink * that);
 
 #endif

@@ -20,9 +20,42 @@ typedef struct CompositeSource {
 	Source * secondary;
 } CompositeSource;
 
+/**
+ * Open a Composite Source. The Source is the concatenation of a primary
+ * Source and a secondary Source.
+ * @param that points to the Composite Source.
+ * @param primary points to the primary Source.
+ * @param secondary points to the secondary Source.
+ * @return a pointer to the Composite Sink as a Sink.
+ */
 extern Source * openCompositeSource(CompositeSource * that, Source * primary, Source * secondary);
+
+/**
+ * Read an octet of data from the Source. Each octet of the primary Source
+ * is returned. Once the primary Source is exhausted, each octet of the
+ * secondary Source is returned. EOF is returned when the secondary Source
+ * is exhaused.
+ * @param that points to the Source.
+ * @return data as an integer for success, <0 otherwise.
+ */
 extern int readCompositeSource(Source * that);
+
+/**
+ * Push an octet of data back into the Source. It will be the next octet
+ * read from the Source. Only one octet can be pushed back before being
+ * re-read from the Source. The octet is not literally pushed back into
+ * the underlying storage medium.
+ * @param that points to the Source.
+ * @param data is an octet to push back to the Source.
+ * @return data as an integer for success, <0 otherwise.
+ */
 extern int pushCompositeSource(Source * that, char data);
+
+/**
+ * Close the Source. The primary Source and the secondary Source is closed.
+ * @param that points to the Source.
+ * @return 0 for success, <0 otherwise.
+ */
 extern int closeCompositeSource(Source * that);
 
 #endif

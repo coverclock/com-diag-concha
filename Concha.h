@@ -14,11 +14,19 @@
 #ifdef EOF
 #undef EOF
 #endif
+/*
+ * End Of File (EOF) indicates that a Source cannot produce or consume
+ * octets now or in the future.
+ */
 #define EOF (-1)
 
 #ifdef EOR
 #undef EOR
 #endif
+/*
+ * End Of File (EOF) indicates that a Source cannot produce or consume
+ * octets now but may be able to do so in the future.
+ */
 #define EOR (-2)
 
 #endif

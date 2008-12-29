@@ -20,8 +20,31 @@ typedef struct ExpanderSink {
     Sink * secondary;
 } ExpanderSink;
 
+/**
+ * Open a Expander Sink. The Sink duplicates writes to a primary Sink and a
+ * secondary Sink.
+ * @param that points to the Expander Sink.
+ * @param primary points to a primary Sink.
+ * @param secondary points to a secondary Sink.
+ * @return a pointer to the Descriptor Source as a Source.
+ */
 extern Sink * openExpanderSink(ExpanderSink * that, Sink * primary, Sink * secondary);
+
+/**
+ * Write an octet of data to the Sink. The octet of data is written to both
+ * the primary Sink and the secondary Sink. Both writes must be successful
+ * for the write to succeed.
+ * @param that points to the Sink.
+ * @param data is an octet to write into the Sink.
+ * @return data as an integer for success, <0 otherwise.
+ */
 extern int writeExpanderSink(Sink * that, char data);
+
+/**
+ * Close the Sink. This closes both the primary and the secondary Sinks.
+ * @param that points to the Sink.
+ * @return 0 for success, <0 otherwise.
+ */
 extern int closeExpanderSink(Sink * that);
 
 #endif
