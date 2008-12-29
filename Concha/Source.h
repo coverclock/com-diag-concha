@@ -26,8 +26,31 @@ struct Source {
     SourceVirtualTable * vp;
 };
 
+/**
+ * Read an octet of data from the Source.
+ * @param that points to the Source.
+ * @return data as an integer for success, <0 otherwise.
+ */
 extern int readSource(Source * that);
+
+/**
+ * Push an octet of data back into the Source. It will be the next octet
+ * read from the Source. Only one octet can be pushed back before being
+ * re-read from the Source. The octet is not literally pushed back into
+ * the underlying storage medium. Pushing back more than one octet before
+ * re-reading is undefined.
+ * @param that points to the Source.
+ * @param data is an octet to push back to the Source.
+ * @return data as an integer for success, <0 otherwise.
+ */
 extern int pushSource(Source * that, char data);
+
+/**
+ * Close the Source. What this means depends upon the Source. Operations
+ * performed on a closed Source are undefined.
+ * @param that points to the Source.
+ * @return 0 for success, <0 otherwise.
+ */
 extern int closeSource(Source * that);
 
 #endif

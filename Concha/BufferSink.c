@@ -25,10 +25,10 @@ static SinkVirtualTable vtable = {
 	closeBufferSink
 };
 
-Sink * openBufferSink(BufferSink * that, char * pointer, size_t bytes) {
+Sink * openBufferSink(BufferSink * that, char * buffer, size_t size) {
 	that->sink.vp = &vtable;
-	that->buffer = pointer;
-	that->next = pointer;
-	that->past = pointer + bytes;
+	that->buffer = buffer;
+	that->next = buffer;
+	that->past = buffer + size;
 	return (Sink *)that;
 }

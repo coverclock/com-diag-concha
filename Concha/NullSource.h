@@ -18,9 +18,35 @@ typedef struct NullSource {
 	Source source;
 } NullSource;
 
+/**
+ * Open a Null Source. The Source never accepts octets of data.
+ * @param that points to the Null Source.
+ * @return a pointer to the Null Source as a Source.
+ */
 extern Source * openNullSource(NullSource * that);
+
+/**
+ * Read an octet of data from the Source. The Null Source always returns
+ * EOF.
+ * @param that points to the Source.
+ * @return EOF always.
+ */
 extern int readNullSource(Source * that);
+
+/**
+ * Push an octet of data back into the Source. The Null Source always
+ * returns EOF.
+ * @param that points to the Source.
+ * @param data is an octet to push back to the Source.
+ * @return EOF always.
+ */
 extern int pushNullSource(Source * that, char data);
+
+/**
+ * Close the Source. This has no effect on the Null Source.
+ * @param that points to the Source.
+ * @return 0 always.
+ */
 extern int closeNullSource(Source * that);
 
 #endif

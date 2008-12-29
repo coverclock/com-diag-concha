@@ -16,6 +16,13 @@
 
 typedef StreamSource FileSource;
 
+/**
+ * Open a File Source. The Source is identical to a Stream Source with a stream
+ * resulting from opening the specified path for reading.
+ * @param that points to the File Source.
+ * @param path names a file to be opened for reading.
+ * @return a pointer to the File Source as a Source.
+ */
 extern Source * openFileSource(FileSource * that, const char * path);
 
 #endif

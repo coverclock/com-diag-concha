@@ -10,7 +10,7 @@ PROJECT		=	concha
 
 MAJOR		=	0
 MINOR		=	0
-BUILD		=	0
+BUILD		=	1
 
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
 DATESTAMP	=	$(shell date +%Y%m%d)

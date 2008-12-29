@@ -20,8 +20,28 @@ typedef struct BufferSink {
 	char * past;
 } BufferSink;
 
-extern Sink * openBufferSink(BufferSink * that, char * pointer, size_t bytes);
+/**
+ * Open a Buffer Sink. The Sink will consume octets until it is full.
+ * @param that points to the Buffer Sink.
+ * @param buffer points to the buffer.
+ * @param size is the capacity of the buffer in octets.
+ * @return a pointer to the Buffer Sink as a Sink.
+ */
+extern Sink * openBufferSink(BufferSink * that, char * buffer, size_t size);
+
+/**
+ * Write an octet of data to the Sink.
+ * @param that points to the Sink.
+ * @param data is an octet to write into the Sink.
+ * @return data as an integer for success, <0 otherwise.
+ */
 extern int writeBufferSink(Sink * that, char data);
+
+/**
+ * Close the Sink. This has no effect on the Buffer Sink.
+ * @param that points to the Sink.
+ * @return 0 for success, <0 otherwise.
+ */
 extern int closeBufferSink(Sink * that);
 
 #endif
