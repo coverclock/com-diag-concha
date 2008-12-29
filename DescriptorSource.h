@@ -20,7 +20,7 @@ typedef struct DescriptorSource {
 } DescriptorSource;
 
 /**
- * Open a Descriptor Source.
+ * Open a Descriptor Source. The Source produces octets from a file descriptor.
  * @param that points to the Descriptor Source.
  * @param fd is an file descriptor opened for reading.
  * @return a pointer to the Descriptor Source as a Source.

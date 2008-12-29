@@ -20,7 +20,7 @@ typedef struct StreamSink {
 } StreamSink;
 
 /**
- * Open a Stream Sink.
+ * Open a Stream Sink. The Sink consumes octets to a standard I/O stream.
  * @param that points to the Stream Sink.
  * @param stream is an standard I/O stream opened for writing.
  * @return a pointer to the Stream Source as a Source.
