@@ -10,7 +10,7 @@ PROJECT		=	concha
 
 MAJOR		=	0
 MINOR		=	0
-BUILD		=	1
+BUILD		=	3
 
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
 DATESTAMP	=	$(shell date +%Y%m%d)
@@ -100,6 +100,9 @@ unittest-seven:	unittest-seven.c
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 unittest-eight:	unittest-eight.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-nine:	unittest-nine.c
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 unittest-suite:	unittest-suite.sh
