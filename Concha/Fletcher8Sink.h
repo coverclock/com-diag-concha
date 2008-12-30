@@ -16,25 +16,25 @@
 
 typedef struct Fletcher8Sink {
 	Sink sink;
-    Sink * to;
+    Sink * primary;
     uint8_t a;
     uint8_t b;
 } Fletcher8Sink;
 
 /**
  * Open an Fletcher 8-bit Sink. The Sink operates against an
- * underlying Sink while computing a Fletcher 8-bit checksum against
+ * outgoing Sink while computing a Fletcher 8-bit checksum against
  * the stream of outgoing data octets.
  * @param that points to the Fletcher 8-bit Sink.
- * @param to points to the underling Sink.
+ * @param primary points to the primary Sink.
  * @return a pointer to the Fletcher 8-bit Sink as a Sink.
  */
-extern Sink * openFletcher8Sink(Fletcher8Sink * that, Sink * to);
+extern Sink * openFletcher8Sink(Fletcher8Sink * that, Sink * primary);
 
 /**
  * Write an octet of data to the Sink. The running value of the
  * Fletcher 8-bit checksum is computed and the octet of data is
- * written to the underlying Source.
+ * written to the primary Sink.
  * @param that points to the Sink.
  * @param data is an octet to write to the Sink.
  * @return data as an integer for success, <0 otherwise.
@@ -44,7 +44,7 @@ extern int writeFletcher8Sink(Sink * that, char data);
 /**
  * Close the Sink. The final value of the Fletcher 8-bit checksum is
  * computed. The a and b bytes of the checksum are written to the
- * underlying Sink. The underlying Sink is closed.
+ * primary Sink. The primary Sink is closed.
  * @param that points to the Sink.
  * @return 0 for success, <0 otherwise.
  */

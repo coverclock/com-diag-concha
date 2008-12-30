@@ -16,7 +16,7 @@
 
 typedef struct Fletcher8Source {
     Source source;
-	Source * from;
+	Source * primary;
     int eof;
     int x;
     int y;
@@ -27,18 +27,18 @@ typedef struct Fletcher8Source {
 
 /**
  * Open an Fletcher 8-bit Source. The Source operates against an
- * underlying Source while computing a Fletcher 8-bit checksum against
+ * primary Source while computing a Fletcher 8-bit checksum against
  * the stream of incoming data octets.
  * @param that points to the Fletcher 8-bit Source.
- * @param from points to the underling Source.
+ * @param primary points to the primary Source.
  * @return a pointer to the Descriptor Source as a Source.
  */
-extern Source * openFletcher8Source(Fletcher8Source * that, Source * from);
+extern Source * openFletcher8Source(Fletcher8Source * that, Source * primary);
 
 /**
- * Read an octet of data from the Sink. The running value of the
+ * Read an octet of data from the Source. The running value of the
  * Fletcher 8-bit checksum is computed from the octet of data that
- * was read from the underlying Source.
+ * was read from the primary Source.
  * @param that points to the Source.
  * @return data as an integer for success, <0 otherwise.
  */
@@ -54,12 +54,11 @@ extern int readFletcher8Source(Source * that);
 extern int pushFletcher8Source(Source * that, char data);
 
 /**
- * Close the Sink. The final value of the Fletcher 8-bit checksum is
- * computed. The a and b bytes of the checksum are written to the to
- * Sink. The to Sink is closed.
- * @param that points to the Sink.
- * @return 0 for success, <0 otherwise.
- * Close the Source. The from Source is closed.
+ * Close the Source. The final value of the Fletcher 8-bit checksum is
+ * computed. The a and b bytes of the checksum are compared against the
+ * last two bytes from the primary Source which were not returned by
+ * read. If they fail to match, the close fails. The primary Source is
+ * closed.
  * @param that points to the Source.
  * @return 0 for success, <0 otherwise.
  */
