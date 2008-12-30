@@ -14,10 +14,27 @@
 #include "Sink.h"
 
 typedef struct BufferSink {
+
+    /**
+     * Base class.
+     */
 	Sink sink;
+
+    /**
+     * Pointer to beginning of buffer.
+     */
 	char * buffer;
+
+    /**
+     * Pointer to next octet to be written to buffer.
+     */
 	char * next;
+
+    /**
+     * Pointer to octet past end of buffer.
+     */
 	char * past;
+
 } BufferSink;
 
 /**

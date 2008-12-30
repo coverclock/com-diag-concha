@@ -14,10 +14,27 @@
 #include "Source.h"
 
 typedef struct CompositeSource {
+
+    /**
+     * Base class.
+     */
 	Source source;
+
+    /**
+     * Pointer to currently active Source.
+     */
     Source * active;
+
+    /**
+     * Pointer to primary Source.
+     */
 	Source * primary;
+
+    /**
+     * Pointer to secondary Source.
+     */
 	Source * secondary;
+
 } CompositeSource;
 
 /**

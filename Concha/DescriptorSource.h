@@ -14,9 +14,22 @@
 #include "Source.h"
 
 typedef struct DescriptorSource {
+
+    /**
+     * Base class.
+     */
 	Source source;
+
+    /**
+     * File descriptor.
+     */
 	int fd;
+
+    /**
+     * Character pushed back into Source or EOF if none.
+     */
 	int back;
+
 } DescriptorSource;
 
 /**

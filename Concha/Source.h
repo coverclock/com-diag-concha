@@ -17,13 +17,31 @@
 typedef struct Source Source;
 
 typedef struct SourceVirtualTable {
+
+    /**
+     * Pointer to read Source function.
+     */
 	int (*read)(Source * that);
+
+    /**
+     * Pointer to push Source function.
+     */
 	int (*push)(Source * that, char data);
+
+    /**
+     * Pointer to close Source function.
+     */
 	int (*close)(Source * that);
+
 } SourceVirtualTable;
 
 struct Source {
+
+    /**
+     * Pointer to Source virtual table.
+     */
     SourceVirtualTable * vp;
+
 };
 
 /**

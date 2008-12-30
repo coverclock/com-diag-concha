@@ -15,9 +15,22 @@
 #include <sys/types.h>
 
 typedef struct ExpanderSink {
+
+    /**
+     * Base class.
+     */
 	Sink sink;
+
+    /**
+     * Pointer to primary Sink.
+     */
     Sink * primary;
+
+    /**
+     * Pointer to secondary Sink.
+     */
     Sink * secondary;
+
 } ExpanderSink;
 
 /**

@@ -15,7 +15,12 @@
 #include <sys/types.h>
 
 typedef struct NullSource {
+
+    /**
+     * Base class.
+     */
 	Source source;
+
 } NullSource;
 
 /**

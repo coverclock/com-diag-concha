@@ -15,14 +15,47 @@
 #include <stdint.h>
 
 typedef struct Fletcher8Source {
+
+    /**
+     * Base class.
+     */
     Source source;
+
+    /**
+     * Pointer to primary Source.
+     */
 	Source * primary;
-    int eof;
+
+    /**
+     * State machine state.
+     */
+    int state;
+
+    /**
+     *  Next octet to be read by two.
+     */
     int x;
+
+    /**
+     * Next octet to be read but one.
+     */
     int y;
+
+    /**
+     * Next octet to be read.
+     */
     int z;
+
+    /**
+     * A byte of the Fletcher 8-bit checksum.
+     */
 	uint8_t a;
+
+    /**
+     * B byte of the Fletcher 8-bit checksum.
+     */
 	uint8_t b;
+
 } Fletcher8Source;
 
 /**
