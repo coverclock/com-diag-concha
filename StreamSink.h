@@ -15,8 +15,17 @@
 #include <stdio.h>
 
 typedef struct StreamSink {
+
+    /**
+     * Base class.
+     */
 	Sink sink;
+
+    /**
+     * Pointer to standard I/O stream.
+     */
     FILE * stream;
+
 } StreamSink;
 
 /**

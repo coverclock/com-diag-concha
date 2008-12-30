@@ -15,7 +15,12 @@
 #include <sys/types.h>
 
 typedef struct NullSink {
+
+    /**
+     * Base class.
+     */
 	Sink sink;
+
 } NullSink;
 
 /**

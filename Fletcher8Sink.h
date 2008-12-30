@@ -15,10 +15,27 @@
 #include <stdint.h>
 
 typedef struct Fletcher8Sink {
+
+    /**
+     * Base class.
+     */
 	Sink sink;
+
+    /**
+     * Pointer to primary Sink.
+     */
     Sink * primary;
+
+    /**
+     * A byte of Fletcher 8-bit checksum.
+     */
     uint8_t a;
+
+    /**
+     * B byte of Fletcher 8-bit checksum.
+     */
     uint8_t b;
+
 } Fletcher8Sink;
 
 /**

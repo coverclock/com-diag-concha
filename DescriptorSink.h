@@ -14,8 +14,17 @@
 #include "Sink.h"
 
 typedef struct DescriptorSink {
+
+    /**
+     * Base class.
+     */
 	Sink sink;
+
+    /**
+     * File descriptor.
+     */
 	int fd;
+
 } DescriptorSink;
 
 /**

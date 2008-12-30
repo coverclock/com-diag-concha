@@ -15,8 +15,17 @@
 #include <stdio.h>
 
 typedef struct StreamSource {
+
+    /**
+     * Base class.
+     */
 	Source source;
+
+    /**
+     * Pointer to standard I/O stream.
+     */
     FILE * stream;
+
 } StreamSource;
 
 /**

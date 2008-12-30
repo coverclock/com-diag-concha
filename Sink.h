@@ -17,12 +17,26 @@
 typedef struct Sink Sink;
 
 typedef struct SinkVirtualTable {
+
+    /**
+     * Pointer to write Sink function.
+     */
 	int (*write)(Sink * that, char data);
+
+    /**
+     * Pointer to close Sink function.
+     */
 	int (*close)(Sink * that);
+
 } SinkVirtualTable;
 
 struct Sink {
+
+    /**
+     * Pointer to Sink virtual table.
+     */
     SinkVirtualTable * vp;
+
 };
 
 /**

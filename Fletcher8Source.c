@@ -11,22 +11,73 @@
 
 #include "Fletcher8Source.h"
 
+#define STATE_NEED2   (2)
+#define STATE_NEED1   (1)
+#define STATE_NEED0   (0)
+#define STATE_EOF     (EOF)
+
 int readFletcher8Source(Source * that) {
 	Fletcher8Source * tp = (Fletcher8Source *)that;
+    int complete = 0;
     int data;
-    if (tp->eof) {
-        data = EOF;
-    } else if ((data == readSource(tp->primary)) == EOF) {
-        tp->eof = !0;
-    } else {
-        tp->x = tp->y;
-        tp->y = tp->z;
-        tp->z = (unsigned char)data;
-        tp->a += tp->x;
-        tp->b += tp->a;
-        data = tp->x;
+
+    while (!complete) {
+
+        switch (tp->state) {
+
+        case STATE_NEED2:
+            if ((data = readSource(tp->primary)) == EOF) {
+                complete = !0;
+                tp->state = STATE_EOF;
+            } else if (data == EOR) {
+                complete = !0;
+            } else {
+                tp->z = (unsigned char)data;
+                tp->state = STATE_NEED1;
+            }
+            break;
+
+        case STATE_NEED1:
+            if ((data = readSource(tp->primary)) == EOF) {
+                complete = !0;
+                data = tp->z;
+                tp->state = STATE_EOF;
+            } else if (data == EOR) {
+                complete = !0;
+            } else {
+                tp->y = tp->z;
+                tp->z = (unsigned char)data;
+                tp->state = STATE_NEED0;
+            }
+            break;
+
+        case STATE_NEED0:
+            if ((data = readSource(tp->primary)) == EOF) {
+                complete = !0;
+                tp->state = STATE_EOF;
+            } else if (data == EOR) {
+                complete = !0;
+            } else {
+                complete = !0;
+                tp->x = tp->y;
+                tp->y = tp->z;
+                tp->z = (unsigned char)data;
+                tp->a += tp->x;
+                tp->b += tp->a;
+                data = tp->x;
+            }
+            break;
+
+        case STATE_EOF:
+            complete = !0;
+            data = EOF;
+            break;
+
+        }
+
     }
-	return data;
+
+    return data;
 }
 
 int pushFletcher8Source(Source * that, char data) {
@@ -66,14 +117,11 @@ static SourceVirtualTable vtable = {
 Source * openFletcher8Source(Fletcher8Source * that, Source * primary) {
 	that->source.vp = &vtable;
     that->primary = primary;
-    that->eof = 0;
+    that->state = STATE_NEED2;
 	that->a = 0;
 	that->b = 0;
     that->x = EOF;
     that->y = EOF;
-    if ((that->z = readSource(that->primary)) != EOF) {
-        that->y = that->z;
-        that->z = readSource(that->primary);
-    }
+    that->z = EOF;
 	return (Source *)that;
 }

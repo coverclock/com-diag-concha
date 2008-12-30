@@ -14,10 +14,27 @@
 #include "Source.h"
 
 typedef struct BufferSource {
+
+    /**
+     * Base class.
+     */
 	Source source;
+
+    /**
+     * Pointer to beginning of buffer.
+     */
 	char * buffer;
+
+    /**
+     * Pointer to next octet to be read from buffer.
+     */
 	char * next;
+
+    /**
+     * Pointer to octet past end of buffer.
+     */
 	char * past;
+
 } BufferSource;
 
 /**
