@@ -14,11 +14,13 @@
 
 int writeDescriptorSink(Sink * that, char data) {
 	DescriptorSink * tp = (DescriptorSink *)that;
+
 	return (write(tp->fd, &data, 1) == 1) ? (unsigned char)data : EOF;
 }
 
 int closeDescriptorSink(Sink * that) {
 	DescriptorSink * tp = (DescriptorSink *)that;
+
 	return close(tp->fd);
 }
 
@@ -28,7 +30,9 @@ static SinkVirtualTable vtable = {
 };
 
 Sink * openDescriptorSink(DescriptorSink * that, int fd) {
+
 	that->sink.vp = &vtable;
 	that->fd = fd;
+
 	return (Sink *)that;
 }

@@ -13,11 +13,13 @@
 
 int readBufferSource(Source * that) {
 	BufferSource * tp = (BufferSource *)that;
+
 	return (tp->next < tp->past) ? (unsigned char)*(tp->next++) : EOF;
 }
 
 int pushBufferSource(Source * that, char data) {
 	BufferSource * tp = (BufferSource *)that;
+
 	return (tp->next > tp->buffer) ? (unsigned char)(*(--tp->next) = data) : EOF;
 }
 
@@ -31,10 +33,12 @@ static SourceVirtualTable vtable = {
 	closeBufferSource
 };
 
-Source * openBufferSource(BufferSource * that, char * buffer, size_t size) {
+Source * openBufferSource(BufferSource * that, void * buffer, size_t size) {
+
 	that->source.vp = &vtable;
-	that->buffer = buffer;
-	that->next = buffer;
-	that->past = buffer + size;
+	that->buffer = (char *)buffer;
+	that->next = that->buffer;
+	that->past = that->buffer + size;
+
 	return (Source *)that;
 }

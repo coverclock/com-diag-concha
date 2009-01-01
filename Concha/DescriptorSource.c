@@ -16,6 +16,7 @@ int readDescriptorSource(Source * that) {
 	DescriptorSource * tp = (DescriptorSource *)that;
 	int word;
 	char data;
+
 	if (tp->back != EOF) {
 		word = tp->back;
 		tp->back = EOF;
@@ -24,16 +25,19 @@ int readDescriptorSource(Source * that) {
 	} else {
 		word = EOF;
 	}
+
 	return word;
 }
 
 int pushDescriptorSource(Source * that, char data) {
 	DescriptorSource * tp = (DescriptorSource *)that;
+
 	return tp->back = (unsigned char)data;
 }
 
 int closeDescriptorSource(Source * that) {
 	DescriptorSource * tp = (DescriptorSource *)that;
+
 	return close(tp->fd);
 }
 
@@ -44,8 +48,10 @@ static SourceVirtualTable vtable = {
 };
 
 Source * openDescriptorSource(DescriptorSource * that, int fd) {
+
 	that->source.vp = &vtable;
 	that->fd = fd;
 	that->back = EOF;
+
 	return (Source *)that;
 }

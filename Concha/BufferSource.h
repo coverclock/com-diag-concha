@@ -44,7 +44,7 @@ typedef struct BufferSource {
  * @param size is the capacity of the buffer in octets.
  * @return a pointer to the Buffer Sink as a Sink.
  */
-extern Source * openBufferSource(BufferSource * that, char * buffer, size_t size);
+extern Source * openBufferSource(BufferSource * that, void * buffer, size_t size);
 
 /**
  * Read an octet of data from the Source.

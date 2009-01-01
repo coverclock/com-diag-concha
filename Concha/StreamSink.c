@@ -13,11 +13,13 @@
 
 int writeStreamSink(Sink * that, char data) {
 	StreamSink * tp = (StreamSink *)that;
+
 	return fputc((unsigned char)data, tp->stream);
 }
 
 int closeStreamSink(Sink * that) {
 	StreamSink * tp = (StreamSink *)that;
+
 	return fclose(tp->stream);
 }
 
@@ -27,7 +29,9 @@ static SinkVirtualTable vtable = {
 };
 
 Sink * openStreamSink(StreamSink * that, FILE * stream) {
+
 	that->sink.vp = &vtable;
 	that->stream = stream;
+
 	return (Sink *)that;
 }

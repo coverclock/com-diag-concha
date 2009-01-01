@@ -14,23 +14,28 @@
 int readCompositeSource(Source * that) {
 	CompositeSource * tp = (CompositeSource *)that;
     int data;
+
     data = readSource(tp->active);
     if ((data == EOF) && (tp->active == tp->primary)) {
         tp->active = tp->secondary;
         data = readSource(tp->active);
     }
+
 	return data;
 }
 
 int pushCompositeSource(Source * that, char data) {
 	CompositeSource * tp = (CompositeSource *) that;
+
     return pushSource(tp->active, data);
 }
 
 int closeCompositeSource(Source * that) {
 	CompositeSource * tp = (CompositeSource *) that;
+
     closeSource(tp->primary);
     closeSource(tp->secondary);
+
 	return 0;
 }
 
@@ -41,9 +46,11 @@ static SourceVirtualTable vtable = {
 };
 
 Source * openCompositeSource(CompositeSource * that, Source * primary, Source * secondary) {
+
 	that->source.vp = &vtable;
 	that->active = primary;
 	that->primary = primary;
 	that->secondary = secondary;
+
 	return (Source *)that;
 }

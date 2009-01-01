@@ -31,5 +31,6 @@ static SourceVirtualTable vtable = {
 
 Source * openNullSource(NullSource * that) {
 	that->source.vp = &vtable;
+
 	return (Source *)that;
 }
