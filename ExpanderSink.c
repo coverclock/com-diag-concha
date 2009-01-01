@@ -13,30 +13,22 @@
 
 int writeExpanderSink(Sink * that, char data) {
 	ExpanderSink * tp = (ExpanderSink *)that;
-    int pri = 0;
-    int sec = 0;
+    int pri;
+    int sec;
 
-    if (tp->primary != (Sink *)0) {
-        pri = writeSink(tp->primary, data);
-    }
-    if (tp->secondary != (Sink *)0) {
-        sec = writeSink(tp->secondary, data);
-    }
+    pri = writeSink(tp->primary, data);
+    sec = writeSink(tp->secondary, data);
 
     return ((pri == EOF) || (sec == EOF)) ? EOF : (unsigned char)data;
 }
 
 int closeExpanderSink(Sink * that) {
 	ExpanderSink * tp = (ExpanderSink *)that;
-    int pri = 0;
-    int sec = 0;
+    int pri;
+    int sec;
 
-    if (tp->primary != (Sink *)0) {
-        pri = closeSink(tp->primary);
-    }
-    if (tp->secondary != (Sink *)0) {
-        sec = closeSink(tp->secondary);
-    }
+    pri = closeSink(tp->primary);
+    sec = closeSink(tp->secondary);
 
     return ((pri == EOF) || (sec == EOF)) ? EOF : 0;
 }
