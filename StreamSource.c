@@ -19,11 +19,13 @@ int readStreamSource(Source * that) {
 
 int pushStreamSource(Source * that, char data) {
 	StreamSource * tp = (StreamSource *)that;
+
 	return ungetc((unsigned char)data, tp->stream);
 }
 
 int closeStreamSource(Source * that) {
 	StreamSource * tp = (StreamSource *)that;
+
 	return fclose(tp->stream);
 }
 
@@ -34,7 +36,9 @@ static SourceVirtualTable vtable = {
 };
 
 Source * openStreamSource(StreamSource * that, FILE * stream) {
+
 	that->source.vp = &vtable;
 	that->stream = stream;
+
 	return (Source *)that;
 }

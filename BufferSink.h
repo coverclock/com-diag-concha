@@ -44,7 +44,7 @@ typedef struct BufferSink {
  * @param size is the capacity of the buffer in octets.
  * @return a pointer to the Buffer Sink as a Sink.
  */
-extern Sink * openBufferSink(BufferSink * that, char * buffer, size_t size);
+extern Sink * openBufferSink(BufferSink * that, void * buffer, size_t size);
 
 /**
  * Write an octet of data to the Sink.

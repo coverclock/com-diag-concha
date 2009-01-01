@@ -83,6 +83,7 @@ int readFletcher8Source(Source * that) {
 int pushFletcher8Source(Source * that, char data) {
 	Fletcher8Source * tp = (Fletcher8Source *)that;
     int rc;
+
     rc = pushSource(tp->primary, (unsigned char)tp->z);
     if (rc != EOF) {
         tp->z = tp->y;
@@ -92,6 +93,7 @@ int pushFletcher8Source(Source * that, char data) {
         tp->a -= tp->x;
         rc = tp->x; 
     }
+
     return rc;
 }
 
@@ -99,12 +101,14 @@ int closeFletcher8Source(Source * that) {
 	Fletcher8Source * tp = (Fletcher8Source *)that;
     int rc;
     int result = 0;
+
 	if ((rc = closeSource(tp->primary)) < 0) {
         result = rc;
     }
     if ((tp->a != tp->y) || (tp->b != tp->z)) {
         result = EOF;
     }
+
     return result;
 }
 
@@ -115,6 +119,7 @@ static SourceVirtualTable vtable = {
 };
 
 Source * openFletcher8Source(Fletcher8Source * that, Source * primary) {
+
 	that->source.vp = &vtable;
     that->primary = primary;
     that->state = STATE_NEED2;
@@ -123,5 +128,6 @@ Source * openFletcher8Source(Fletcher8Source * that, Source * primary) {
     that->x = EOF;
     that->y = EOF;
     that->z = EOF;
+
 	return (Source *)that;
 }

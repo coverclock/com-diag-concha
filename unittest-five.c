@@ -42,57 +42,74 @@ int main(int argc, char * argv[]) {
         perror("stat");
         return 1;
     }
+
     if ((from = (char *)malloc(status.st_size)) == (char *)0) {
         perror("malloc");
         return 2;
     }
+
     if ((to = (char *)malloc(status.st_size)) == (char *)0) {
         perror("malloc");
         return 3;
     }
+
     if ((too = (char *)malloc(status.st_size)) == (char *)0) {
         perror("malloc");
         return 4;
     }
+
     if ((file = fopen("lesser.txt", "r")) == (FILE *)0) {
         perror("fopen");
         return 5;
     }
+
     if (fread(from, sizeof(char), status.st_size, file) != status.st_size) {
         return 5;
     }
+
     if ((source = openBufferSource(&buffersource, from, status.st_size)) == (Source *)0) {
         return 6;
     }
+
     if ((sink1 = openBufferSink(&buffersink1, to, status.st_size)) == (Sink *)0) {
         return 7;
     }
+
     if ((sink2 = openBufferSink(&buffersink2, too, status.st_size)) == (Sink *)0) {
         return 8;
     }
+
     if ((sink = openExpanderSink(&expandersink, sink1, sink2)) == (Sink *)0) {
         return 9;
     }
+
     if ((rc = source2sink(source, sink)) != EOF) {
         return 10;
     }
+
     if (strnlen(from, status.st_size) != strnlen(to, status.st_size)) {
         return 11;
     }
+
     if (strncmp(from, to, status.st_size) != 0) {
         return 12;
     }
+
     if (strnlen(from, status.st_size) != strnlen(too, status.st_size)) {
         return 13;
     }
+
     if (strncmp(from, too, status.st_size) != 0) {
         return 14;
     }
+
     if (closeSource(source) == EOF) {
         return 15;
     }
+
     if (closeSink(sink) == EOF) {
         return 16;
     }
+
     return 0;
 }

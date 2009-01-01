@@ -13,8 +13,10 @@
 
 int writeFletcher8Sink(Sink * that, char data) {
 	Fletcher8Sink * tp = (Fletcher8Sink *)that;
+
 	tp->a += data;
 	tp->b += tp->a;
+
 	return writeSink(tp->primary, data);
 }
 
@@ -22,6 +24,7 @@ int closeFletcher8Sink(Sink * that) {
 	Fletcher8Sink * tp = (Fletcher8Sink *)that;
     int rc;
     int result = 0;
+
     if ((rc = writeSink(tp->primary, tp->a)) < 0) {
         result = rc;
     } else if ((rc = writeSink(tp->primary, tp->b)) < 0) {
@@ -30,6 +33,7 @@ int closeFletcher8Sink(Sink * that) {
 	if ((rc = closeSink(tp->primary)) < 0) {
         result = rc;
     }
+
     return result;
 }
 
@@ -39,9 +43,11 @@ static SinkVirtualTable vtable = {
 };
 
 Sink * openFletcher8Sink(Fletcher8Sink * that, Sink * primary) {
+
 	that->sink.vp = &vtable;
 	that->primary = primary;
 	that->a = 0;
 	that->b = 0;
+
 	return (Sink *)that;
 }

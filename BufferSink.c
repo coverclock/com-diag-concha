@@ -13,6 +13,7 @@
 
 int writeBufferSink(Sink * that, char data) {
 	BufferSink * tp = (BufferSink *)that;
+
 	return (tp->next < tp->past) ? (unsigned char)(*(tp->next++) = data) : EOF;
 }
 
@@ -25,10 +26,12 @@ static SinkVirtualTable vtable = {
 	closeBufferSink
 };
 
-Sink * openBufferSink(BufferSink * that, char * buffer, size_t size) {
+Sink * openBufferSink(BufferSink * that, void * buffer, size_t size) {
+
 	that->sink.vp = &vtable;
-	that->buffer = buffer;
-	that->next = buffer;
-	that->past = buffer + size;
+	that->buffer = (char *)buffer;
+	that->next = that->buffer;
+	that->past = that->buffer + size;
+
 	return (Sink *)that;
 }

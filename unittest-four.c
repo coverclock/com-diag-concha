@@ -35,41 +35,53 @@ int main(int argc, char * argv[]) {
         perror("stat");
         return 1;
     }
+
     if ((from = (char *)malloc(status.st_size)) == (char *)0) {
         perror("malloc");
         return 2;
     }
+
     if ((to = (char *)malloc(status.st_size)) == (char *)0) {
         perror("malloc");
         return 3;
     }
+
     if ((file = fopen("lesser.txt", "r")) == (FILE *)0) {
         perror("fopen");
         return 5;
     }
+
     if (fread(from, sizeof(char), status.st_size, file) != status.st_size) {
         return 4;
     }
+
     if ((source = openBufferSource(&buffersource, from, status.st_size)) == (Source *)0) {
         return 5;
     }
+
     if ((sink = openBufferSink(&buffersink, to, status.st_size)) == (Sink *)0) {
         return 6;
     }
+
     if ((rc = source2sink(source, sink)) != EOF) {
         return 7;
     }
+
     if (strnlen(from, status.st_size) != strnlen(to, status.st_size)) {
         return 8;
     }
+
     if (strncmp(from, to, status.st_size) != 0) {
         return 9;
     }
+
     if (closeSource(source) == EOF) {
         return 10;
     }
+
     if (closeSink(sink) == EOF) {
         return 11;
     }
+
     return 0;
 }

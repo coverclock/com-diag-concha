@@ -61,11 +61,10 @@ extern int readBoundedSource(Source * that);
 extern int pushBoundedSource(Source * that, char data);
 
 /**
- * Close the Source. This has no effect on the Bounded Source.
+ * Close the Source. This primary Source is closed.
  * @param that points to the Source.
  * @return 0 for success, <0 otherwise.
  */
 extern int closeBoundedSource(Source * that);
 
 #endif
-

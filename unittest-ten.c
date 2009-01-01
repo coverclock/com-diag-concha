@@ -1,7 +1,7 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
 
 /**
- * @file
+ * @buffer
  *
  * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
@@ -10,44 +10,49 @@
  */
 
 #include <stdio.h>
-#include <stdint.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 #include "source2sink.h"
 #include "FileSource.h"
 #include "FileSink.h"
 #include "CompositeSource.h"
+#include "BoundedSource.h"
 
 int main(int argc, char * argv[]) {
     int rc;
     FileSource filesource1;
     FileSource filesource2;
-    FileSource filesource3;
     FileSink filesink;
     CompositeSource compositesource;
-    CompositeSource compositesource0;
-    Source * source;
-    Source * source0;
+    BoundedSource boundedsource;
     Source * source1;
     Source * source2;
     Source * source3;
+    Source * source;
     Sink * sink;
+    struct stat status;
 
-    if ((source1 = openFileSource(&filesource1, "lesser.txt")) == (Source *)0) {
+    if ((rc = stat("lesser.txt", &status)) < 0) {
+        perror("stat");
         return 1;
     }
 
-    if ((source2 = openFileSource(&filesource2, "Makefile")) == (Source *)0) {
+    if ((source1 = openFileSource(&filesource1, "lesser.txt")) == (Source *)0) {
         return 2;
     }
 
-    if ((source3 = openFileSource(&filesource3, "README.h")) == (Source *)0) {
+    if ((source2 = openFileSource(&filesource2, "README.h")) == (Source *)0) {
         return 3;
     }
 
-    if ((source0 = openCompositeSource(&compositesource0, source2, source3)) == (Source *)0) {
+    if ((source3 = openCompositeSource(&compositesource, source1, source2)) == (Source *)0) {
         return 4;
     }
 
-    if ((source = openCompositeSource(&compositesource, source1, source0)) == (Source *)0) {
+    if ((source = openBoundedSource(&boundedsource, source3, status.st_size)) == (Source *)0) {
         return 5;
     }
 

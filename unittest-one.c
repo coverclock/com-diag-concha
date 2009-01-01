@@ -20,20 +20,26 @@ int main(int argc, char * argv[]) {
     StreamSink streamsink;
     Source * source;
     Sink * sink;
+
     if ((source = openStreamSource(&streamsource, stdin)) == (Source *)0) {
         return 1;
     }
+
     if ((sink = openStreamSink(&streamsink, stdout)) == (Sink *)0) {
         return 2;
     }
+
     if ((rc = source2sink(source, sink)) != EOF) {
         return 3;
     }
+
     if (closeSource(source) == EOF) {
         return 4;
     }
+
     if (closeSink(sink) == EOF) {
         return 5;
     }
+
     return 0;
 }
