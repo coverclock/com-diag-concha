@@ -1,6 +1,6 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
-#ifndef _H_COM_DIAG_CONCHA_BOUNDEDSOURCE_
-#define _H_COM_DIAG_CONCHA_BOUNDEDSOURCE_
+#ifndef _H_COM_DIAG_CONCHA_UNCLOSEDSOURCE_
+#define _H_COM_DIAG_CONCHA_UNCLOSEDSOURCE_
 
 /**
  * @file
@@ -13,7 +13,7 @@
 
 #include "Source.h"
 
-typedef struct BoundedSource {
+typedef struct UnclosedSource {
 
     /**
      * Base class.
@@ -23,36 +23,30 @@ typedef struct BoundedSource {
     /**
      * Pointer to primary Source.
      */
-    Source * primary;
+	Source * primary;
 
-    /**
-     * Bound of the Source in octets.
-     */
-	size_t bound;
-
-} BoundedSource;
+} UnclosedSource;
 
 /**
- * Open a Bounded Source. The Source will produce octets until its bound is
- * reached.
- * @param that points to the Bounded Sink.
+ * Open a Unclosed Source. The Source inherits all methods from the primary
+ * Source except for the close.
+ * @param that points to the Unclosed Source.
  * @param primary points to the primary Source.
- * @param bound is the bound of the Source in octets.
- * @return a pointer to the Bounded Sink as a Sink.
+ * @return a pointer to the Unclosed Source as a Source.
  */
-extern Source * openBoundedSource(BoundedSource * that, Source * primary, size_t bound);
+extern Source * openUnclosedSource(UnclosedSource * that, Source * primary);
 
 /**
  * Read an octet of data from the Source. An octet is returned from the
- * primary Source until either it reaches EOF or the bound is reached.
+ * primary Source.
  * @param that points to the Source.
  * @return data as an integer for success, <0 otherwise.
  */
-extern int readBoundedSource(Source * that);
+extern int readUnclosedSource(Source * that);
 
 /**
  * Push an octet of data back into the Source. The octet is pushed back
- * into the primary Source and the bound is adjusted appropriately.
+ * onto the primary Source.
  * @param that points to the Source.
  * @param data is an octet to push back to the Source.
  * @return data as an integer for success, <0 otherwise.
@@ -60,10 +54,10 @@ extern int readBoundedSource(Source * that);
 extern int pushBoundedSource(Source * that, char data);
 
 /**
- * Close the Source. This primary Source is closed.
+ * Close the Source. This has no effect on the primary Source.
  * @param that points to the Source.
  * @return 0 for success, <0 otherwise.
  */
-extern int closeBoundedSource(Source * that);
+extern int closeUnclosedSource(Source * that);
 
 #endif

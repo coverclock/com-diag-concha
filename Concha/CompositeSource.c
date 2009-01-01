@@ -32,11 +32,13 @@ int pushCompositeSource(Source * that, char data) {
 
 int closeCompositeSource(Source * that) {
 	CompositeSource * tp = (CompositeSource *) that;
+    int pri;
+    int sec;
 
-    closeSource(tp->primary);
-    closeSource(tp->secondary);
+    pri = closeSink(tp->primary);
+    sec = closeSink(tp->secondary);
 
-	return 0;
+    return ((pri == EOF) || (sec == EOF)) ? EOF : 0;
 }
 
 static SourceVirtualTable vtable = {

@@ -43,7 +43,7 @@ typedef struct CompositeSource {
  * @param that points to the Composite Source.
  * @param primary points to the primary Source.
  * @param secondary points to the secondary Source.
- * @return a pointer to the Composite Sink as a Sink.
+ * @return a pointer to the Composite Source as a Source.
  */
 extern Source * openCompositeSource(CompositeSource * that, Source * primary, Source * secondary);
 

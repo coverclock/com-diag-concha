@@ -39,7 +39,7 @@ typedef struct ExpanderSink {
  * @param that points to the Expander Sink.
  * @param primary points to a primary Sink.
  * @param secondary points to a secondary Sink.
- * @return a pointer to the Descriptor Source as a Source.
+ * @return a pointer to the Descriptor SInk as a Sink.
  */
 extern Sink * openExpanderSink(ExpanderSink * that, Sink * primary, Sink * secondary);
 
