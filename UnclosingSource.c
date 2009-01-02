@@ -9,31 +9,31 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "UnclosedSource.h"
+#include "UnclosingSource.h"
 
-int readUnclosedSource(Source * that) {
-	UnclosedSource * tp = (UnclosedSource *)that;
+int readUnclosingSource(Source * that) {
+	UnclosingSource * tp = (UnclosingSource *)that;
 
 	return readSource(tp->primary);
 }
 
-int pushUnclosedSource(Source * that, char data) {
-	UnclosedSource * tp = (UnclosedSource *)that;
+int pushUnclosingSource(Source * that, char data) {
+	UnclosingSource * tp = (UnclosingSource *)that;
 
     return pushSource(tp->primary, data);
 }
 
-int closeUnclosedSource(Source * that) {
+int closeUnclosingSource(Source * that) {
 	return 0;
 }
 
 static SourceVirtualTable vtable = {
-	readUnclosedSource,
-	pushUnclosedSource,
-	closeUnclosedSource
+	readUnclosingSource,
+	pushUnclosingSource,
+	closeUnclosingSource
 };
 
-Source * openUnclosedSource(UnclosedSource * that, Source * primary) {
+Source * openUnclosingSource(UnclosingSource * that, Source * primary) {
 
 	that->source.vp = &vtable;
 	that->primary = primary;

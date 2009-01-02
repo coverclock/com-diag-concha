@@ -1,6 +1,6 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
-#ifndef _H_COM_DIAG_CONCHA_UNCLOSEDSINK_
-#define _H_COM_DIAG_CONCHA_UNCLOSEDSINK_
+#ifndef _H_COM_DIAG_CONCHA_UNCLOSINGSINK_
+#define _H_COM_DIAG_CONCHA_UNCLOSINGSINK_
 
 /**
  * @file
@@ -14,7 +14,7 @@
 #include "Sink.h"
 #include <sys/types.h>
 
-typedef struct UnclosedSink {
+typedef struct UnclosingSink {
 
     /**
      * Base class.
@@ -26,16 +26,17 @@ typedef struct UnclosedSink {
      */
     Sink * primary;
 
-} UnclosedSink;
+} UnclosingSink;
 
 /**
- * Open a Unclosed Sink. The Sink inherits all methods from the primary
- * Sink except for the close.
- * @param that points to the Unclosed Sink.
+ * Open a Unclosing Sink. The Sink forwards all methods to the primary
+ * Sink except for the close. This causes the primary Sink to be left open
+ * even if an application closes the Unclosing Sink.
+ * @param that points to the Unclosing Sink.
  * @param primary points to a primary Sink.
  * @return a pointer to the Descriptor Source as a Source.
  */
-extern Sink * openUnclosedSink(UnclosedSink * that, Sink * primary);
+extern Sink * openUnclosingSink(UnclosingSink * that, Sink * primary);
 
 /**
  * Write an octet of data to the Sink. The octet is written to the
@@ -51,6 +52,6 @@ extern int writeBufferSink(Sink * that, char data);
  * @param that points to the Sink.
  * @return 0 for success, <0 otherwise.
  */
-extern int closeUnclosedSink(Sink * that);
+extern int closeUnclosingSink(Sink * that);
 
 #endif

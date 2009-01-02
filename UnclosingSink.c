@@ -9,24 +9,24 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "UnclosedSink.h"
+#include "UnclosingSink.h"
 
-int writeUnclosedSink(Sink * that, char data) {
-	UnclosedSink * tp = (UnclosedSink *)that;
+int writeUnclosingSink(Sink * that, char data) {
+	UnclosingSink * tp = (UnclosingSink *)that;
 
 	return writeSink(tp->primary, data);
 }
 
-int closeUnclosedSink(Sink * that) {
+int closeUnclosingSink(Sink * that) {
     return 0;
 }
 
 static SinkVirtualTable vtable = {
-	writeUnclosedSink,
-	closeUnclosedSink
+	writeUnclosingSink,
+	closeUnclosingSink
 };
 
-Sink * openUnclosedSink(UnclosedSink * that, Sink * primary) {
+Sink * openUnclosingSink(UnclosingSink * that, Sink * primary) {
 
 	that->sink.vp = &vtable;
 	that->primary = primary;

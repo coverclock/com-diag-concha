@@ -12,6 +12,7 @@
  */
 
 #include "Sink.h"
+#include <sys/types.h>
 
 typedef struct BufferSink {
 

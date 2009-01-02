@@ -12,6 +12,7 @@
  */
 
 #include "Source.h"
+#include <sys/types.h>
 
 typedef struct BufferSource {
 
