@@ -26,9 +26,14 @@ typedef struct ClosingSource {
 	Source * primary;
 
     /**
-     * True if closed or if read returned EOF, false otherwise.
+     * True if read returned EOF, false otherwise.
      */
-    int eof;
+    int ended;
+
+    /**
+     *  True if closed, false otherwise.
+     */
+    int closed;
 
 } ClosingSource;
 

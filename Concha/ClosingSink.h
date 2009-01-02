@@ -27,9 +27,14 @@ typedef struct ClosingSink {
     Sink * primary;
 
     /**
-     * True if closed or if write returned EOF, false otherwise.
+     * True if write returned EOF, false otherwise.
      */
-    int eof;
+    int ended;
+
+    /**
+     *  True if closed, false otherwise.
+     */
+    int closed;
 
 } ClosingSink;
 
