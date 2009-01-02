@@ -20,15 +20,15 @@
 #include "FileSink.h"
 #include "BoundedSource.h"
 #include "ExpanderSink.h"
-#include "UnclosedSource.h"
-#include "UnclosedSink.h"
+#include "UnclosingSource.h"
+#include "UnclosingSink.h"
 
 int main(int argc, char * argv[]) {
     int rc;
     FileSource filesource;
-    UnclosedSource unclosedsource;
+    UnclosingSource unclosedsource;
     BoundedSource boundedsource;
-    UnclosedSink unclosedsink;
+    UnclosingSink unclosedsink;
     FileSink filesink1;
     FileSink filesink2;
     ExpanderSink expandersink;
@@ -50,7 +50,7 @@ int main(int argc, char * argv[]) {
         return 2;
     }
 
-    if ((source2 = openUnclosedSource(&unclosedsource, source1)) == (Source *)0) {
+    if ((source2 = openUnclosingSource(&unclosedsource, source1)) == (Source *)0) {
         return 3;
     }
 
@@ -62,7 +62,7 @@ int main(int argc, char * argv[]) {
         return 5;
     }
 
-    if ((sink2 = openUnclosedSink(&unclosedsink, sink1)) == (Sink *)0) {
+    if ((sink2 = openUnclosingSink(&unclosedsink, sink1)) == (Sink *)0) {
         return 6;
     }
 
