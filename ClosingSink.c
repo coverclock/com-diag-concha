@@ -15,10 +15,12 @@ int writeClosingSink(Sink * that, char data) {
 	ClosingSink * tp = (ClosingSink *)that;
     int rc;
 
-    if (tp->eof) {
+    if (tp->closed) {
+        rc = EOF;
+    } else if (tp->ended) {
         rc = EOF;
     } else if ((rc = writeSink(tp->primary, data)) == EOF) {
-        tp->eof = !0;
+        tp->ended = !0;
     } else {
         /* Do nothing. */
     }
@@ -30,10 +32,10 @@ int closeClosingSink(Sink * that) {
 	ClosingSink * tp = (ClosingSink *)that;
     int rc;
 
-    if (tp->eof) {
+    if (tp->closed) {
         rc = EOF;
     } else if ((rc = closeSink(tp->primary)) == 0) {
-        tp->eof = !0;
+        tp->closed = !0;
     } else {
         /* Do nothing. */
     }
@@ -50,7 +52,8 @@ Sink * openClosingSink(ClosingSink * that, Sink * primary) {
 
 	that->sink.vp = &vtable;
 	that->primary = primary;
-    that->eof = 0;
+    that->ended = 0;
+    that->closed = 0;
 
 	return (Sink *)that;
 }
