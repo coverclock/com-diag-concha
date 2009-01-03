@@ -18,6 +18,11 @@ int readRingBuffer(Source * that) {
     int data;
     char * consumer;
 
+#if DEBUG
+    printf("read size=%lu reads=%lu writes=%lu\n",
+        tp->size, tp->reads, tp->writes);
+#endif
+
     if ((tp->writes - tp->reads) == 0) {
         data = EOR;
     } else {
@@ -25,6 +30,11 @@ int readRingBuffer(Source * that) {
         data = (unsigned char)*consumer;
         ++tp->reads;
     }
+
+#if DEBUG
+    printf("read size=%lu reads=%lu writes=%lu data=0x%x\n",
+        tp->size, tp->reads, tp->writes, data);
+#endif
 
 	return data;
 }
@@ -34,7 +44,12 @@ int pushRingBuffer(Source * that, char data) {
     int rc;
     char * consumer;
 
-    if ((tp->reads - tp->writes) >= tp->size) {
+#if DEBUG
+    printf("push size=%lu reads=%lu writes=%lu data=0x%x\n",
+        tp->size, tp->reads, tp->writes, data);
+#endif
+
+    if ((tp->writes - tp->reads) >= tp->size) {
         rc = EOR;
     } else {
         --tp->reads;
@@ -42,6 +57,11 @@ int pushRingBuffer(Source * that, char data) {
         *consumer = data;
         rc = (unsigned char)data;
     }
+
+#if DEBUG
+    printf("push size=%lu reads=%lu writes=%lu rc=0x%x\n",
+        tp->size, tp->reads, tp->writes, rc);
+#endif
 
     return rc;
 }
@@ -51,7 +71,12 @@ int writeRingBuffer(Sink * that, char data) {
     int rc;
     char * producer;
 
-    if ((tp->reads - tp->writes) >= tp->size) {
+#if DEBUG
+    printf("write size=%lu reads=%lu writes=%lu data=0x%x\n",
+        tp->size, tp->reads, tp->writes, data);
+#endif
+
+    if ((tp->writes - tp->reads) >= tp->size) {
         rc = EOR;
     } else {
         producer = tp->buffer + (tp->writes % tp->size);
@@ -59,7 +84,12 @@ int writeRingBuffer(Sink * that, char data) {
         ++tp->writes;
         rc = (unsigned char)data;
     }
-        
+
+#if DEBUG
+    printf("write size=%lu reads=%lu writes=%lu rc=0x%x\n",
+        tp->size, tp->reads, tp->writes, rc);
+#endif
+ 
 	return rc;
 }
 
