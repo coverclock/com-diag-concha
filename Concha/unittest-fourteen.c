@@ -34,15 +34,10 @@ int main(int argc, char * argv[]) {
     char buffer[32];
     int eof = 0;
     int data;
-
-    printf("%p %p %p %lu %lu %p %p\n",
-        &ringbuffer,
-        &ringbuffer.source,
-        &ringbuffer.sink,
-        concha_offsetof(RingBuffer, source),
-        concha_offsetof(RingBuffer, sink),
-        concha_originof(RingBuffer, source, &ringbuffer.source),
-        concha_originof(RingBuffer, sink, &ringbuffer.sink));
+    RingBuffer * ring1;
+    RingBuffer * ring2;
+    Source * source1;
+    Sink * sink1;
 
     if ((source = openFileSource(&filesource, "lesser.txt")) == (Source *)0) {
         return 1;
@@ -54,6 +49,30 @@ int main(int argc, char * argv[]) {
 
     if ((ring = openRingBuffer(&ringbuffer, buffer, sizeof(buffer))) == (RingBuffer *)0) {
         return 3;
+    }
+
+    if (ring != &ringbuffer) {
+        return 21;
+    }
+
+    source1 = sourceRingBuffer(ring);
+    if (source1 != &ringbuffer.source) {
+        return 22;
+    }
+
+    sink1 = sinkRingBuffer(ring);
+    if (sink1 != &ringbuffer.sink) {
+        return 23;
+    }
+
+    ring1 = concha_originof(RingBuffer, source, sourceRingBuffer(ring));
+    if (ring1 != ring) {
+        return 24;
+    }
+
+    ring2 = concha_originof(RingBuffer, sink, sinkRingBuffer(ring));
+    if (ring2 != ring) {
+        return 25;
     }
 
     if ((ringsource = sourceRingBuffer(ring)) == (Source *)0) {

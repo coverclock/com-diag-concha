@@ -16,14 +16,14 @@
 int readRingBuffer(Source * that) {
     RingBuffer * tp = concha_originof(RingBuffer, source, that);
     int data;
+    char * consumer;
 
-    if (tp->consumer == (char *)0) {
-        data = EOF;
-    } else if (tp->consumer == tp->producer) {
+    if ((tp->writes - tp->reads) == 0) {
         data = EOR;
     } else {
-        data = (unsigned char)*(tp->consumer++);
-        if (tp->consumer >= tp->past) { tp->consumer = tp->buffer; }
+        consumer = tp->buffer + (tp->reads % tp->size);
+        data = (unsigned char)*consumer;
+        ++tp->reads;
     }
 
 	return data;
@@ -31,61 +31,43 @@ int readRingBuffer(Source * that) {
 
 int pushRingBuffer(Source * that, char data) {
     RingBuffer * tp = concha_originof(RingBuffer, source, that);
-    char * prior;
     int rc;
+    char * consumer;
 
-    if (tp->consumer == (char *)0) {
-        rc = EOF;
+    if ((tp->reads - tp->writes) >= tp->size) {
+        rc = EOR;
     } else {
-        prior = tp->consumer - 1;
-        if (prior < tp->buffer) { prior = tp->past - 1; }
-        if (prior == tp->producer) {
-            rc = EOR;
-        } else {
-            tp->consumer = prior;
-            *tp->consumer = data;
-            rc = (unsigned char)data;
-        }
+        --tp->reads;
+        consumer = tp->buffer + (tp->reads % tp->size);
+        *consumer = data;
+        rc = (unsigned char)data;
     }
 
     return rc;
 }
 
 int writeRingBuffer(Sink * that, char data) {
-    RingBuffer * tp = concha_originof(RingBuffer, source, that);
-    char * next;
+    RingBuffer * tp = concha_originof(RingBuffer, sink, that);
     int rc;
+    char * producer;
 
-    if (tp->producer == (char *)0) {
-        rc = EOF;
+    if ((tp->reads - tp->writes) >= tp->size) {
+        rc = EOR;
     } else {
-        next = tp->producer + 1;
-        if (next >= tp->past) { next = tp->buffer; }
-        if (next == tp->consumer) {
-            rc = EOR;
-        } else {
-            tp->producer = next;
-            *tp->producer = data;
-            rc = (unsigned char)data;
-        }
+        producer = tp->buffer + (tp->writes % tp->size);
+        *producer = data;
+        ++tp->writes;
+        rc = (unsigned char)data;
     }
         
 	return rc;
 }
 
 int closeRingBufferSource(Source * that) {
-    RingBuffer * tp = concha_originof(RingBuffer, source, that);
-
-    tp->consumer = (char *)0;
-
     return 0;
 }
 
 int closeRingBufferSink(Sink * that) {
-    RingBuffer * tp = concha_originof(RingBuffer, sink, that);
-
-    tp->producer = (char *)0;
-
     return 0;
 }
 
@@ -105,9 +87,9 @@ RingBuffer * openRingBuffer(RingBuffer * that, void * buffer, size_t size) {
 	that->source.vp = &sourcevtable;
 	that->sink.vp = &sinkvtable;
     that->buffer = (char *)buffer;
-    that->past = that->buffer + size;
-    that->producer = that->buffer;
-    that->consumer = that->buffer;
+    that->size = size;
+    that->reads = 0;
+    that->writes = 0;
 
     return that;
 }
