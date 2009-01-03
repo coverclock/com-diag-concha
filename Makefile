@@ -117,6 +117,9 @@ unittest-twelve:	unittest-twelve.c
 unittest-thirteen:	unittest-thirteen.c
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
+unittest-fourteen:	unittest-fourteen.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
 unittest-suite:	unittest-suite.sh
 	cp $< $@; chmod 755 $@
 
