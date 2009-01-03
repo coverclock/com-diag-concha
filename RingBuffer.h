@@ -28,30 +28,29 @@ typedef struct RingBuffer {
     Sink sink;
 
     /**
-     * Pointer to beginning of buffer.
+     * Pointer to first octet in buffer.
      */
 	char * buffer;
 
     /**
-     * Pointer to octet past end of buffer.
+     * Size of the buffer in octets.
      */
-	char * past;
+    size_t size;
 
     /**
-     * Pointer to the most recent octet produced.
+     * Running number of reads (wraps okay).
      */
-    char * producer;
+    size_t reads;
 
     /**
-     * Pointer to the next octet to be consumed.
+     * Running number of writes (wraps okay).
      */
-    char * consumer;
+    size_t writes;
 
 } RingBuffer;
 
 /**
  * Open a Ring Buffer.
- * and consume octets unti it is full.
  * @param that points to the Ring Buffer.
  * @param buffer points to the buffer.
  * @param size is the capacity of the buffer in octets.
@@ -101,14 +100,16 @@ extern int pushRingBuffer(Source * that, char data);
 extern int writeRingBuffer(Sink * that, char data);
 
 /**
- * Close the Source. The read and push return only EOF thereafter.
+ * Close the Source. Closes the Ring Buffer Source. Has no effect on
+ * the Ring Buffer.
  * @param that points to the Source.
  * @return 0 for success, <0 otherwise.
  */
 extern int closeRingBufferSource(Source * that);
 
 /**
- * Close the Sink. The write will return on EOF thereafter.
+ * Close the Sink. Closes the Ring Buffer Sink. Has no effect on
+ * the Ring Buffer.
  * @param that points to the Sink.
  * @return 0 for success, <0 otherwise.
  */

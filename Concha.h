@@ -11,6 +11,8 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
+#include <stdio.h>
+
 #ifndef EOF
 /**
  * End Of File (EOF) indicates that a Source cannot produce or consume
