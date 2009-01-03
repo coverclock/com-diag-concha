@@ -9,8 +9,8 @@ ROOT		=	Concha
 PROJECT		=	concha
 
 MAJOR		=	0
-MINOR		=	0
-BUILD		=	5
+MINOR		=	1
+BUILD		=	0
 
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
 DATESTAMP	=	$(shell date +%Y%m%d)
@@ -32,7 +32,7 @@ AR		=	$(CROSS_COMPILE)ar
 RANLIB		=	$(CROSS_COMPILE)ranlib
 
 ARFLAGS		=	rcv
-CPPFLAGS	=
+CPPFLAGS	=	# -DDEBUG
 CXXFLAGS	=	$(CARCH) -g
 CFLAGS		=	$(CARCH) -g
 CPFLAGS		=	-i

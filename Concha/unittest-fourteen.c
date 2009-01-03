@@ -39,14 +39,6 @@ int main(int argc, char * argv[]) {
     Source * source1;
     Sink * sink1;
 
-    if ((source = openFileSource(&filesource, "lesser.txt")) == (Source *)0) {
-        return 1;
-    }
-
-    if ((sink = openFileSink(&filesink, "output.txt")) == (Sink *)0) {
-        return 2;
-    }
-
     if ((ring = openRingBuffer(&ringbuffer, buffer, sizeof(buffer))) == (RingBuffer *)0) {
         return 3;
     }
@@ -81,6 +73,14 @@ int main(int argc, char * argv[]) {
 
     if ((ringsink = sinkRingBuffer(ring)) == (Sink *)0) {
         return 5;
+    }
+
+    if ((source = openFileSource(&filesource, "lesser.txt")) == (Source *)0) {
+        return 1;
+    }
+
+    if ((sink = openFileSink(&filesink, "output.txt")) == (Sink *)0) {
+        return 2;
     }
 
     while (!eof) {
