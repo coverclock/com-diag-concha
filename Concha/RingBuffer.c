@@ -114,6 +114,10 @@ static SinkVirtualTable sinkvtable = {
 
 RingBuffer * openRingBuffer(RingBuffer * that, void * buffer, size_t size) {
 
+    if ((that == (RingBuffer *)0) || (buffer == (void *)0)) {
+        return (RingBuffer *)0;
+    }
+
 	that->source.vp = &sourcevtable;
 	that->sink.vp = &sinkvtable;
     that->buffer = (char *)buffer;
@@ -125,9 +129,19 @@ RingBuffer * openRingBuffer(RingBuffer * that, void * buffer, size_t size) {
 }
 
 Source * sourceRingBuffer(RingBuffer * that) {
+
+    if (that == (RingBuffer *)0) {
+        return (Source *)0;
+    }
+
     return &(that->source);
 }
 
 Sink * sinkRingBuffer(RingBuffer * that) {
+
+    if (that == (RingBuffer *)0) {
+        return (Sink *)0;
+    }
+
     return &(that->sink);
 }

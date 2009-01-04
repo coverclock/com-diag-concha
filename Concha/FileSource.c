@@ -14,7 +14,7 @@
 Source * openFileSource(FileSource * that, const char * path) {
     FILE * stream;
 
-    if ((stream = fopen(path, "r")) == (FILE *)0) {
+    if ((that == (FileSource *)0) || ((stream = fopen(path, "r")) == (FILE *)0)) {
         return (Source *)0;
     }
 

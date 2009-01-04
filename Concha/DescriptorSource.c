@@ -49,6 +49,10 @@ static SourceVirtualTable vtable = {
 
 Source * openDescriptorSource(DescriptorSource * that, int fd) {
 
+    if ((that == (DescriptorSource *)0) || (fd < 0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
 	that->fd = fd;
 	that->back = EOF;

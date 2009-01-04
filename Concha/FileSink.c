@@ -14,7 +14,7 @@
 Sink * openFileSink(FileSink * that, const char * path) {
     FILE * stream;
 
-    if ((stream = fopen(path, "w")) == (FILE *)0) {
+    if ((that == (FileSink *)0) || ((stream = fopen(path, "w")) == (FILE *)0)) {
         return (Sink *)0;
     }
 

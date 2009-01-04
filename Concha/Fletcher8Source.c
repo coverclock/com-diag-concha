@@ -120,6 +120,10 @@ static SourceVirtualTable vtable = {
 
 Source * openFletcher8Source(Fletcher8Source * that, Source * primary) {
 
+    if ((that == (Fletcher8Source *)0) || (primary == (Source *)0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
     that->primary = primary;
     that->state = STATE_NEED2;

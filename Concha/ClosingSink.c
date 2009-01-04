@@ -50,6 +50,10 @@ static SinkVirtualTable vtable = {
 
 Sink * openClosingSink(ClosingSink * that, Sink * primary) {
 
+    if ((that == (ClosingSink *)0) || (primary == (Sink *)0)) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 	that->primary = primary;
     that->ended = 0;

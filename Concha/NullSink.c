@@ -25,6 +25,11 @@ static SinkVirtualTable vtable = {
 };
 
 Sink * openNullSink(NullSink * that) {
+
+    if (that == (NullSink *)0) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 
 	return (Sink *)that;

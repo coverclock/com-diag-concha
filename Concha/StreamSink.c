@@ -30,6 +30,10 @@ static SinkVirtualTable vtable = {
 
 Sink * openStreamSink(StreamSink * that, FILE * stream) {
 
+    if ((that == (StreamSink *)0) || (stream == (FILE *)0)) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 	that->stream = stream;
 

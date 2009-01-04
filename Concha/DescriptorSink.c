@@ -31,6 +31,10 @@ static SinkVirtualTable vtable = {
 
 Sink * openDescriptorSink(DescriptorSink * that, int fd) {
 
+    if ((that == (DescriptorSink *)0) || (fd < 0)) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 	that->fd = fd;
 

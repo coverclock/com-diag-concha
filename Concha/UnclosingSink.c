@@ -28,6 +28,10 @@ static SinkVirtualTable vtable = {
 
 Sink * openUnclosingSink(UnclosingSink * that, Sink * primary) {
 
+    if ((that == (UnclosingSink *)0) || (primary == (Sink *)0)) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 	that->primary = primary;
 

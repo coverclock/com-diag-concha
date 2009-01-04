@@ -44,6 +44,10 @@ static SinkVirtualTable vtable = {
 
 Sink * openFletcher8Sink(Fletcher8Sink * that, Sink * primary) {
 
+    if ((that == (Fletcher8Sink *)0) || (primary == (Sink *)0)) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 	that->primary = primary;
 	that->a = 0;

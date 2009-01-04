@@ -35,6 +35,10 @@ static SourceVirtualTable vtable = {
 
 Source * openBufferSource(BufferSource * that, void * buffer, size_t size) {
 
+    if ((that == (BufferSource *)0) || (buffer == (void *)0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
 	that->buffer = (char *)buffer;
 	that->next = that->buffer;

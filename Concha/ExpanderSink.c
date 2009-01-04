@@ -40,6 +40,10 @@ static SinkVirtualTable vtable = {
 
 Sink * openExpanderSink(ExpanderSink * that, Sink * primary, Sink * secondary) {
 
+    if ((that == (ExpanderSink *)0) || (primary == (Sink *)0) || (secondary == (Sink *)0)) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 	that->primary = primary;
 	that->secondary = secondary;
