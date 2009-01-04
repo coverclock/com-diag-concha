@@ -28,6 +28,10 @@ static SinkVirtualTable vtable = {
 
 Sink * openBufferSink(BufferSink * that, void * buffer, size_t size) {
 
+    if ((that == (BufferSink *)0) || (buffer == (void *)0)) {
+        return (Sink *)0;
+    }
+
 	that->sink.vp = &vtable;
 	that->buffer = (char *)buffer;
 	that->next = that->buffer;

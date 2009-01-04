@@ -13,11 +13,11 @@
 
 int readBoundedSource(Source * that) {
 	BoundedSource * tp = (BoundedSource *)that;
-    int data = EOF;
+    int data;
 
     if (tp->bound == 0) {
-        /* Do nothing. */
-    } else if ((data = readSource(tp->primary)) == EOF) {
+        data = EOF;
+    } else if ((data = readSource(tp->primary)) < 0) {
         /* Do nothing. */
     } else {
         --tp->bound;
@@ -30,7 +30,7 @@ int pushBoundedSource(Source * that, char data) {
 	BoundedSource * tp = (BoundedSource *)that;
     int rc;
 
-    if ((rc = pushSource(tp->primary, data)) != EOF) {
+    if ((rc = pushSource(tp->primary, data)) >= 0) {
         ++tp->bound;
     }
 
@@ -51,10 +51,13 @@ static SourceVirtualTable vtable = {
 
 Source * openBoundedSource(BoundedSource * that, Source * primary, size_t bound) {
 
+    if ((that == (BoundedSource *)0) || (primary == (Source *)0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
 	that->primary = primary;
 	that->bound = bound;
 
 	return (Source *)that;
 }
-

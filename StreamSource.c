@@ -37,6 +37,10 @@ static SourceVirtualTable vtable = {
 
 Source * openStreamSource(StreamSource * that, FILE * stream) {
 
+    if ((that == (StreamSource *)0) || (stream == (FILE *)0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
 	that->stream = stream;
 

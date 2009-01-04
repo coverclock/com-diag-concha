@@ -68,6 +68,10 @@ static SourceVirtualTable vtable = {
 
 Source * openClosingSource(ClosingSource * that, Source * primary) {
 
+    if ((that == (ClosingSource *)0) || (primary == (Source *)0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
 	that->primary = primary;
     that->ended = 0;

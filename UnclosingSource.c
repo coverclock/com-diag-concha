@@ -35,6 +35,10 @@ static SourceVirtualTable vtable = {
 
 Source * openUnclosingSource(UnclosingSource * that, Source * primary) {
 
+    if ((that == (UnclosingSource *)0) || (primary == (Source *)0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
 	that->primary = primary;
 

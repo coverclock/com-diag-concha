@@ -49,6 +49,10 @@ static SourceVirtualTable vtable = {
 
 Source * openCompositeSource(CompositeSource * that, Source * primary, Source * secondary) {
 
+    if ((that == (CompositeSource *)0) || (primary == (Source *)0) || (secondary == (Source *)0)) {
+        return (Source *)0;
+    }
+
 	that->source.vp = &vtable;
 	that->active = primary;
 	that->primary = primary;

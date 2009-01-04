@@ -9,7 +9,7 @@ ROOT		=	Concha
 PROJECT		=	concha
 
 MAJOR		=	0
-MINOR		=	1
+MINOR		=	2
 BUILD		=	0
 
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
@@ -120,6 +120,9 @@ unittest-thirteen:	unittest-thirteen.c
 unittest-fourteen:	unittest-fourteen.c
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
+unittest-fifteen:	unittest-fifteen.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
 unittest-suite:	unittest-suite.sh
 	cp $< $@; chmod 755 $@
 
@@ -178,7 +181,7 @@ distribution:
 ########## Tests
 
 test:	unittest-suite
-	unittest-suite
+	sh ./unittest-suite
 
 ########## Dependencies
 
