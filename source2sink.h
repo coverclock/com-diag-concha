@@ -5,7 +5,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -13,6 +13,7 @@
 
 #include "Source.h"
 #include "Sink.h"
+#include <sys/types.h>
 
 /**
  * Execute part of a unit test by reading a data from a Source, pushing
@@ -22,30 +23,38 @@
  * @param sink points to a Sink.
  * @return the number of octets transferred successfully or <0 otherwise.
  */
-static int source2sink(Source * source, Sink * sink) {
+static ssize_t source2sink(Source * source, Sink * sink) {
+    ssize_t total = 0;
     int data;
     int data2;
+
     while (1) {
         if ((data = readSource(source)) < 0) {
             break;
         } else if ((data = pushSource(source, (data2 = data))) < 0) {
+            total = -101;
             break;
         } else if (data != data2) {
-            data = -10;
+            total = -102;
             break;
         } else if ((data = readSource(source)) < 0) {
+            total = -103;
             break;
         } else if (data != data2) {
-            data = -20;
+            total = -104;
             break;
         } else if ((data = writeSink(sink, (data2 = data))) < 0) {
+            total = -105;
             break;
         } else if (data != data2) {
-            data = -30;
+            total = -106;
             break;
+        } else {
+            ++total;
         }
     }
-    return data;
+
+    return total;
 }
 
 #endif

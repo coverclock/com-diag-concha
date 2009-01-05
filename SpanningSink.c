@@ -9,16 +9,12 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "Source.h"
+#include "SpanningSink.h"
 
-int readSource(Source * that) {
-	return (*(that->vp->read))(that);
+ssize_t writeSpanningSink(SpanningSink * that, const void * buffer, size_t size) {
+	return (*(that->vp->write))(that, buffer, size);
 }
 
-int pushSource(Source * that, char data) {
-	return (*(that->vp->push))(that, data);
-}
-
-int closeSource(Source * that) {
+int closeSpanningSink(SpanningSink * that) {
 	return (*(that->vp->close))(that);
 }

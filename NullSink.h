@@ -5,7 +5,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -29,20 +29,5 @@ typedef struct NullSink {
  * @return a pointer to the Null Sink as a Sink.
  */
 extern Sink * openNullSink(NullSink * that);
-
-/**
- * Write an octet of data to the Sink.
- * @param that points to the Sink.
- * @param data is an octet to write into the Sink.
- * @return data as an integer always.
- */
-extern int writeNullSink(Sink * that, char data);
-
-/**
- * Close the Sink. This has no effect on the Null Sink.
- * @param that points to the Sink.
- * @return 0 always.
- */
-extern int closeNullSink(Sink * that);
 
 #endif

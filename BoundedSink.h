@@ -5,7 +5,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -19,7 +19,7 @@ typedef struct BoundedSink {
     /**
      * Base class.
      */
-	Sink source;
+	Sink sink;
 
     /**
      * Pointer to primary Sink.
@@ -42,20 +42,5 @@ typedef struct BoundedSink {
  * @return a pointer to the Bounded Sink as a Sink.
  */
 extern Sink * openBoundedSink(BoundedSink * that, Sink * primary, size_t bound);
-
-/**
- * Write an octet of data back into the Sink.
- * @param that points to the Sink.
- * @param data is an octet to write to the Sink.
- * @return data as an integer for success, <0 otherwise.
- */
-extern int writeBoundedSink(Sink * that, char data);
-
-/**
- * Close the Sink. This primary Sink is closed.
- * @param that points to the Sink.
- * @return 0 for success, <0 otherwise.
- */
-extern int closeBoundedSink(Sink * that);
 
 #endif

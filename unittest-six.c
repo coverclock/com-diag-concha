@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -12,24 +12,10 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "source2sink.h"
+#include "fletcher8.h"
 #include "FileSource.h"
 #include "FileSink.h"
 #include "Fletcher8Sink.h"
-
-static size_t fletcher8(FILE * file, uint8_t * ap, uint8_t * bp) {
-    uint8_t a = 0;
-    uint8_t b = 0;
-    size_t n = 0;
-    int data;
-    while ((data = getc(file)) != EOF) {
-        a += (uint8_t)data;
-        b += a;
-        ++n;
-    }
-    *ap = a;
-    *bp = b;
-    return n;
-}
 
 int main(int argc, char * argv[]) {
     int rc;
@@ -68,8 +54,8 @@ int main(int argc, char * argv[]) {
         return 4;
     }
 
-    if ((rc = source2sink(source, sink)) != EOF) {
-        return 5;
+    if ((rc = source2sink(source, sink)) < 0) {
+        return -rc;
     }
 
     printf("%u: (0x%02x,0x%02x) (0x%02x,0x%02x)\n",

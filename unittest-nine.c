@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -55,8 +55,8 @@ int main(int argc, char * argv[]) {
         return 6;
     }
 
-    if ((rc = source2sink(source, sink)) != EOF) {
-        return 7;
+    if ((rc = source2sink(source, sink)) < 0) {
+        return -rc;
     }
 
     if (closeSource(source) == EOF) {

@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -14,25 +14,35 @@
 
 int readDescriptorSource(Source * that) {
 	DescriptorSource * tp = (DescriptorSource *)that;
-	int word;
 	char data;
+    int rc;
 
-	if (tp->back != EOF) {
-		word = tp->back;
-		tp->back = EOF;
-	} else if (read(tp->fd, &data, 1) == 1) {
-		word = (unsigned char)data;
+	if (tp->pushed != EOF) {
+		rc = tp->pushed;
+		tp->pushed = EOF;
+	} else if ((rc = read(tp->fd, &data, 1)) == 1) {
+		rc = (unsigned char)data;
+	} else if (rc == 0) {
+		rc = EOF;
 	} else {
-		word = EOF;
-	}
+        rc = EOR;
+    }
 
-	return word;
+	return rc;
 }
 
 int pushDescriptorSource(Source * that, char data) {
 	DescriptorSource * tp = (DescriptorSource *)that;
+    int rc;
 
-	return tp->back = (unsigned char)data;
+    if (tp->pushed == EOF) {
+        tp->pushed = (unsigned char)data;
+        rc = tp->pushed;
+    } else {
+        rc = EOF;
+    }
+
+	return rc;
 }
 
 int closeDescriptorSource(Source * that) {
@@ -55,7 +65,7 @@ Source * openDescriptorSource(DescriptorSource * that, int fd) {
 
 	that->source.vp = &vtable;
 	that->fd = fd;
-	that->back = EOF;
+	that->pushed = EOF;
 
 	return (Source *)that;
 }
