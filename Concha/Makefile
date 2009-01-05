@@ -1,4 +1,4 @@
-# Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA
+# Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA
 # Licensed under the terms in README.h
 # Chip Overclock <coverclock@diag.com>
 # http://www.diag.com/navigation/downloads/Concha.html
@@ -121,6 +121,12 @@ unittest-fourteen:	unittest-fourteen.c
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 unittest-fifteen:	unittest-fifteen.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-sixteen:	unittest-sixteen.c
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-seventeen:	unittest-seventeen.c
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 unittest-suite:	unittest-suite.sh

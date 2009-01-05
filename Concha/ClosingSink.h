@@ -5,7 +5,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -50,24 +50,5 @@ typedef struct ClosingSink {
  * @return a pointer to the Descriptor Source as a Source.
  */
 extern Sink * openClosingSink(ClosingSink * that, Sink * primary);
-
-/**
- * Write an octet of data to the Sink. The octet is written to the
- * primary Sink. If an EOF is encountered, the Sink is permanently
- * placed in the EOF state.
- * @param that points to the Sink.
- * @param data is an octet to write into the Sink.
- * @return data as an integer for success, <0 otherwise.
- */
-extern int writeBufferSink(Sink * that, char data);
-
-/**
- * Close the Sink. The Sink closes the primary Sink. If the close of
- * the primary Sink succeeds, the Sink is permanently placed in the
- * EOF state.
- * @param that points to the Sink.
- * @return 0 for success, <0 otherwise.
- */
-extern int closeClosingSink(Sink * that);
 
 #endif

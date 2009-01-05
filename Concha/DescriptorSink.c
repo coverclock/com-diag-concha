@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -14,8 +14,11 @@
 
 int writeDescriptorSink(Sink * that, char data) {
 	DescriptorSink * tp = (DescriptorSink *)that;
+    int rc;
 
-	return (write(tp->fd, &data, 1) == 1) ? (unsigned char)data : EOF;
+    rc = write(tp->fd, &data, 1);
+
+	return  (rc == 1) ? (unsigned char)data : (rc == 0) ? EOF : EOR;
 }
 
 int closeDescriptorSink(Sink * that) {

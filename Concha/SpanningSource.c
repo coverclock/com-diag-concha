@@ -9,16 +9,12 @@
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "Source.h"
+#include "SpanningSource.h"
 
-int readSource(Source * that) {
-	return (*(that->vp->read))(that);
+ssize_t readSpanningSource(SpanningSource * that, void * buffer, size_t size) {
+	return (*(that->vp->read))(that, buffer, size);
 }
 
-int pushSource(Source * that, char data) {
-	return (*(that->vp->push))(that, data);
-}
-
-int closeSource(Source * that) {
+int closeSpanningSource(SpanningSource * that) {
 	return (*(that->vp->close))(that);
 }

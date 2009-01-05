@@ -1,9 +1,9 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
 
 /**
- * @buffer
+ * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -74,8 +74,8 @@ int main(int argc, char * argv[]) {
         return 8;
     }
 
-    if ((rc = source2sink(source, sink)) != EOF) {
-        return 9;
+    if ((rc = source2sink(source, sink)) < 0) {
+        return -rc;
     }
 
     if (closeSource(source) == EOF) {
@@ -86,8 +86,8 @@ int main(int argc, char * argv[]) {
         return 11;
     }
 
-    if ((rc = source2sink(source1, sink1)) != EOF) {
-        return 12;
+    if ((rc = source2sink(source1, sink1)) < 0) {
+        return -rc;
     }
 
     if (closeSource(source1) == EOF) {

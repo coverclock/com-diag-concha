@@ -63,6 +63,14 @@ export PATH=$PATH:.
 	unittest-fifteen || exit $?
 	diff lesser.txt output.txt || exit $?
 
+	echo "16"
+	unittest-fifteen < lesser.txt > output.txt || exit $?
+	diff lesser.txt output.txt || exit $?
+
+	echo "16"
+	unittest-seventeen < lesser.txt > output.txt || exit $?
+	diff lesser.txt output.txt || exit $?
+
 	rm -f output*.txt
 	exit 0
 )

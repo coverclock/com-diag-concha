@@ -1,9 +1,9 @@
 /* vi: set ts=4 expandtab shiftwidth=4: */
 
 /**
- * @buffer
+ * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "source2sink.h"
 #include "BufferSource.h"
 #include "BufferSink.h"
 #include "ClosingSource.h"

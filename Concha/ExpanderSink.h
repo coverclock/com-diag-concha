@@ -5,7 +5,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -42,22 +42,5 @@ typedef struct ExpanderSink {
  * @return a pointer to the Descriptor SInk as a Sink.
  */
 extern Sink * openExpanderSink(ExpanderSink * that, Sink * primary, Sink * secondary);
-
-/**
- * Write an octet of data to the Sink. The octet of data is written to both
- * the primary Sink and the secondary Sink. Both writes must be successful
- * for the write to succeed.
- * @param that points to the Sink.
- * @param data is an octet to write into the Sink.
- * @return data as an integer for success, <0 otherwise.
- */
-extern int writeExpanderSink(Sink * that, char data);
-
-/**
- * Close the Sink. This closes both the primary and the secondary Sinks.
- * @param that points to the Sink.
- * @return 0 for success, <0 otherwise.
- */
-extern int closeExpanderSink(Sink * that);
 
 #endif

@@ -5,7 +5,7 @@
 /**
  * @file
  *
- * Copyright 2008 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -71,48 +71,5 @@ extern Source * sourceRingBuffer(RingBuffer * that);
  * @return a pointer to the Source interface of the Ring Buffer.
  */
 extern Sink * sinkRingBuffer(RingBuffer * that);
-
-/**
- * Read an octet of data from the Source. If the Source is empty, EOD is
- * returned to indicate that no data is currently available but may be in
- * the future.
- * @param that points to the Source.
- * @return data as an integer for success, <0 otherwise.
- */
-extern int readRingBuffer(Source * that);
-
-/**
- * Push an octet of data back into the Source. Since the Ring Buffer may
- * consume as well produce data, this function may return EOD indicating
- * that there is temporarily no space in the Ring Buffer.
- * @param that points to the Source.
- * @param data is an octet to push back to the Source.
- * @return data as an integer for success, <0 otherwise.
- */
-extern int pushRingBuffer(Source * that, char data);
-
-/**
- * Write an octet of data to the Sink.
- * @param that points to the Sink.
- * @param data is an octet to write into the Sink.
- * @return data as an integer for success, <0 otherwise.
- */
-extern int writeRingBuffer(Sink * that, char data);
-
-/**
- * Close the Source. Closes the Ring Buffer Source. Has no effect on
- * the Ring Buffer.
- * @param that points to the Source.
- * @return 0 for success, <0 otherwise.
- */
-extern int closeRingBufferSource(Source * that);
-
-/**
- * Close the Sink. Closes the Ring Buffer Sink. Has no effect on
- * the Ring Buffer.
- * @param that points to the Sink.
- * @return 0 for success, <0 otherwise.
- */
-extern int closeRingBufferSink(Sink * that);
 
 #endif
