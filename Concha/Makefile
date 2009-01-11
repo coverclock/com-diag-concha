@@ -15,10 +15,14 @@ BUILD		=	0
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
 DATESTAMP	=	$(shell date +%Y%m%d)
 
+ALLHFILES	=	$(wildcard *.h)
+ALLCFILES	=	$(wildcard *.c)
+ALLSHFILES	=	$(wildcard *.sh)
+
 UNITTESTS	=	$(wildcard unittest-*.c) $(wildcard unittest-*.sh)
-CFILES		=	$(filter-out $(UNITTESTS),$(wildcard *.c))
-SHFILES		=	$(filter-out $(UNITTESTS),$(wildcard *.sh))
-HFILES		=	$(wildcard *.h)
+CFILES		=	$(filter-out $(UNITTESTS),$(ALLCFILES))
+SHFILES		=	$(filter-out $(UNITTESTS),$(ALLSHFILES))
+HFILES		=	$(ALLHFILES)
 
 OBJECTS		=	$(addsuffix .o,$(basename $(CFILES)))
 BINARIES	=	$(basename $(UNITTESTS))
@@ -78,55 +82,55 @@ lib$(PROJECT).a:	$(OBJECTS)
 
 ########## Binaries
 
-unittest-one:	unittest-one.c
+unittest-one:	unittest-one.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-two:	unittest-two.c
+unittest-two:	unittest-two.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-three:	unittest-three.c
+unittest-three:	unittest-three.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-four:	unittest-four.c
+unittest-four:	unittest-four.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-five:	unittest-five.c
+unittest-five:	unittest-five.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-six:	unittest-six.c
+unittest-six:	unittest-six.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-seven:	unittest-seven.c
+unittest-seven:	unittest-seven.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-eight:	unittest-eight.c
+unittest-eight:	unittest-eight.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-nine:	unittest-nine.c
+unittest-nine:	unittest-nine.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-ten:	unittest-ten.c
+unittest-ten:	unittest-ten.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-eleven:	unittest-eleven.c
+unittest-eleven:	unittest-eleven.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-twelve:	unittest-twelve.c
+unittest-twelve:	unittest-twelve.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-thirteen:	unittest-thirteen.c
+unittest-thirteen:	unittest-thirteen.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-fourteen:	unittest-fourteen.c
+unittest-fourteen:	unittest-fourteen.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-fifteen:	unittest-fifteen.c
+unittest-fifteen:	unittest-fifteen.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-sixteen:	unittest-sixteen.c
+unittest-sixteen:	unittest-sixteen.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-seventeen:	unittest-seventeen.c
+unittest-seventeen:	unittest-seventeen.c $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 unittest-suite:	unittest-suite.sh
@@ -193,8 +197,8 @@ test:	unittest-suite
 
 depend:	dependencies.mk
 
-dependencies.mk:	Makefile $(CFILES) $(HFILES)
-	$(CC) $(CPPFLAGS) -M -MG $(CFILES) > dependencies.mk
+dependencies.mk:	Makefile $(ALLCFILES) $(ALLHFILES)
+	$(CC) $(CPPFLAGS) -M -MG $(ALLCFILES) > dependencies.mk
 
--include dependencies.mk
+include dependencies.mk
 

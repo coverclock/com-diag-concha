@@ -24,21 +24,16 @@ typedef struct SpanningSinkVirtualTable {
     SinkVirtualTable base;
 
     /**
-     * Pointer to write Sink function.
+     * Pointer to write Spanning Sink function.
      */
 	ssize_t (*write)(SpanningSink * that, const void * buffer, size_t size);
-
-    /**
-     * Pointer to close Sink function.
-     */
-	int (*close)(SpanningSink * that);
 
 } SpanningSinkVirtualTable;
 
 struct SpanningSink {
 
     /**
-     * Pointer to Sink virtual table.
+     * Pointer to Spanning Sink virtual table.
      */
     SpanningSinkVirtualTable * vp;
 
@@ -53,13 +48,5 @@ struct SpanningSink {
  * @return the number of octets actually written for success, <0 otherwise.
  */
 extern ssize_t writeSpanningSink(SpanningSink * that, const void * buffer, size_t size);
-
-/**
- * Close the Spanning Sink. What this means depends on the Spanning Sink.
- * Operations performed on a closed Spanning Sink are undefined.
- * @param that points to the Spanning Sink.
- * @return 0 for success, <0 otherwise.
- */
-extern int closeSpanningSink(SpanningSink * that);
 
 #endif

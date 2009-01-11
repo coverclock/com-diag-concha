@@ -11,20 +11,15 @@
 
 #include "DescriptorSpanningSink.h"
 #include <unistd.h>
+#include <stdio.h>
 
 ssize_t writeDescriptorSpanningSink(SpanningSink * that, const void * buffer, size_t size) {
 	DescriptorSpanningSink * tp = (DescriptorSpanningSink *)that;
     int rc;
-    
+
     rc = write(tp->descriptorsink.fd, buffer, size);
 
 	return (rc > 0) ? rc : (rc == 0) ? EOF : EOR;
-}
-
-int closeDescriptorSpanningSink(SpanningSink * that) {
-	DescriptorSpanningSink * tp = (DescriptorSpanningSink *)that;
-
-	return close(tp->descriptorsink.fd);
 }
 
 extern int writeDescriptorSink(Sink * that, char data);
@@ -35,14 +30,14 @@ static SpanningSinkVirtualTable vtable = {
         writeDescriptorSink,
         closeDescriptorSink
     },
-	writeDescriptorSpanningSink,
-	closeDescriptorSpanningSink
+	writeDescriptorSpanningSink
 };
 
 SpanningSink * openDescriptorSpanningSink(DescriptorSpanningSink * that, int fd) {
     Sink * sink;
 
 	sink = openDescriptorSink(&(that->descriptorsink), fd);
+	that->descriptorsink.sink.vp = &vtable;
 
     return (sink == (Sink *)0) ? (SpanningSink *)0 : (SpanningSink *)that;
 }
