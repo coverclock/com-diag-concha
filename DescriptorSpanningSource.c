@@ -11,6 +11,7 @@
 
 #include "DescriptorSpanningSource.h"
 #include <unistd.h>
+#include <stdio.h>
 
 ssize_t readDescriptorSpanningSource(SpanningSource * that, void * buffer, size_t size) {
 	DescriptorSpanningSource * tp = (DescriptorSpanningSource *)that;
@@ -31,12 +32,6 @@ ssize_t readDescriptorSpanningSource(SpanningSource * that, void * buffer, size_
 	return result;
 }
 
-int closeDescriptorSpanningSource(SpanningSource * that) {
-	DescriptorSpanningSource * tp = (DescriptorSpanningSource *)that;
-
-	return close(tp->descriptorsource.fd);
-}
-
 extern int readDescriptorSource(Source * that);
 extern int pushDescriptorSource(Source * that, char data);
 extern int closeDescriptorSource(Source * that);
@@ -47,14 +42,14 @@ static SpanningSourceVirtualTable vtable = {
         pushDescriptorSource,
         closeDescriptorSource
     },
-	readDescriptorSpanningSource,
-	closeDescriptorSpanningSource
+	readDescriptorSpanningSource
 };
 
 SpanningSource * openDescriptorSpanningSource(DescriptorSpanningSource * that, int fd) {
     Source * source;
 
 	source = openDescriptorSource(&(that->descriptorsource), fd);
+	that->descriptorsource.source.vp = &vtable;
 
     return (source == (Source *)0) ? (SpanningSource *)0 : (SpanningSource *)that;
 }

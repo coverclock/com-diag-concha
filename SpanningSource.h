@@ -28,17 +28,12 @@ typedef struct SpanningSourceVirtualTable {
      */
 	ssize_t (*read)(SpanningSource * that, void * buffer, size_t size);
 
-    /**
-     * Pointer to close Spanning Source function.
-     */
-	int (*close)(SpanningSource * that);
-
 } SpanningSourceVirtualTable;
 
 struct SpanningSource {
 
     /**
-     * Pointer to SpanningSource virtual table.
+     * Pointer to Spanning Source virtual table.
      */
     SpanningSourceVirtualTable * vp;
 

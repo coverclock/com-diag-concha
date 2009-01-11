@@ -12,6 +12,8 @@
 #include "spanningsource2spanningsink.h"
 #include "DescriptorSpanningSource.h"
 #include "DescriptorSpanningSink.h"
+#include <errno.h>
+#include <stdio.h>
 
 int main(int argc, char * argv[]) {
     int rc;
@@ -28,8 +30,8 @@ int main(int argc, char * argv[]) {
         return 2;
     }
 
-    if ((rc = spanningsource2spanningsink(source, sink)) != EOF) {
-        return 3;
+    if ((rc = spanningsource2spanningsink(source, sink)) < 0) {
+        return -rc;
     }
 
     if (closeSpanningSource(source) == EOF) {

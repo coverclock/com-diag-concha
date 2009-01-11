@@ -15,6 +15,7 @@
 #include "SpanningSink.h"
 #include <sys/types.h>
 #include <stdint.h>
+#include <stdio.h>
 
 /**
  * Execute part of a unit test by reading a data from a Spanning Source,
@@ -25,8 +26,8 @@
  */
 static int spanningsource2spanningsink(SpanningSource * source, SpanningSink * sink) {
     ssize_t total = 0;
-    ssize_t reads;
-    ssize_t writes;
+    ssize_t reads = 0;
+    ssize_t writes = 0;
     uint8_t buffer[32];
 
     while (1) {
@@ -34,10 +35,13 @@ static int spanningsource2spanningsink(SpanningSource * source, SpanningSink * s
             break;
         } else if (reads == 0) {
             total = -111;
+            break;
         } else if ((writes = writeSpanningSink(sink, buffer, reads)) < 0) {
             total = -112;
+            break;
         } else if (writes != reads) {
             total = -113;
+            break;
         } else {
             total += writes;
         }

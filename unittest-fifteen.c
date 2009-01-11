@@ -60,7 +60,7 @@ int main(int argc, char * argv[]) {
         return 6;
     }
 
-    if ((rc = source2sink(source, sink)) < 0) {
+    if ((rc = source2sink(source, sink)) != -105) {
         return -rc;
     }
 

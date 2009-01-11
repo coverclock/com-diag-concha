@@ -16,5 +16,7 @@ ssize_t readSpanningSource(SpanningSource * that, void * buffer, size_t size) {
 }
 
 int closeSpanningSource(SpanningSource * that) {
-	return (*(that->vp->close))(that);
+    Source * tp = (Source *)that;
+
+	return (*(tp->vp->close))(tp);
 }
