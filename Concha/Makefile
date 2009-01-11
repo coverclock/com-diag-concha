@@ -9,7 +9,7 @@ ROOT		=	Concha
 PROJECT		=	concha
 
 MAJOR		=	0
-MINOR		=	2
+MINOR		=	3
 BUILD		=	0
 
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
