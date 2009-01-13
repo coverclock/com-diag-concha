@@ -18,3 +18,17 @@ int writeSink(Sink * that, char data) {
 int closeSink(Sink * that) {
 	return (*(that->vp->close))(that);
 }
+
+size_t writesSink(Sink * that, const void * buffer, size_t size) {
+    size_t writes = 0;
+    char * here = (char *)buffer;
+
+    while ((size--) > 0) {
+        if (writeSink(that, here[writes]) < 0) {
+            break;
+        }
+        writes++;
+    }
+
+    return writes;
+}

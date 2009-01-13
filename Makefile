@@ -82,55 +82,58 @@ lib$(PROJECT).a:	$(OBJECTS)
 
 ########## Binaries
 
-unittest-one:	unittest-one.c $(LIBRARIES)
+unittest-one:	unittest-one.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-two:	unittest-two.c $(LIBRARIES)
+unittest-two:	unittest-two.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-three:	unittest-three.c $(LIBRARIES)
+unittest-three:	unittest-three.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-four:	unittest-four.c $(LIBRARIES)
+unittest-four:	unittest-four.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-five:	unittest-five.c $(LIBRARIES)
+unittest-five:	unittest-five.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-six:	unittest-six.c $(LIBRARIES)
+unittest-six:	unittest-six.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-seven:	unittest-seven.c $(LIBRARIES)
+unittest-seven:	unittest-seven.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-eight:	unittest-eight.c $(LIBRARIES)
+unittest-eight:	unittest-eight.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-nine:	unittest-nine.c $(LIBRARIES)
+unittest-nine:	unittest-nine.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-ten:	unittest-ten.c $(LIBRARIES)
+unittest-ten:	unittest-ten.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-eleven:	unittest-eleven.c $(LIBRARIES)
+unittest-eleven:	unittest-eleven.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-twelve:	unittest-twelve.c $(LIBRARIES)
+unittest-twelve:	unittest-twelve.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-thirteen:	unittest-thirteen.c $(LIBRARIES)
+unittest-thirteen:	unittest-thirteen.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-fourteen:	unittest-fourteen.c $(LIBRARIES)
+unittest-fourteen:	unittest-fourteen.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-fifteen:	unittest-fifteen.c $(LIBRARIES)
+unittest-fifteen:	unittest-fifteen.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-sixteen:	unittest-sixteen.c $(LIBRARIES)
+unittest-sixteen:	unittest-sixteen.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
-unittest-seventeen:	unittest-seventeen.c $(LIBRARIES)
+unittest-seventeen:	unittest-seventeen.o $(LIBRARIES)
+	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
+
+unittest-eighteen:	unittest-eighteen.o $(LIBRARIES)
 	LD_LIBRARY_PATH=. $(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 unittest-suite:	unittest-suite.sh
