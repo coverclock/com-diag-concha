@@ -55,4 +55,14 @@ extern int writeSink(Sink * that, char data);
  */
 extern int closeSink(Sink * that);
 
+/**
+ * Extends writeSink to write multiple bytes by just calling writeSink
+ * multiple times.
+ * @param that points to the Source.
+ * @param buffer points to the buffer from which data is written.
+ * @param size is the size of the buffer in octets.
+ * @return the number of octets actually written.
+ */
+extern size_t writesSink(Sink * that, const void * buffer, size_t size);
+
 #endif

@@ -71,4 +71,14 @@ extern int pushSource(Source * that, char data);
  */
 extern int closeSource(Source * that);
 
+/**
+ * Extends readSource to read multiple bytes by just calling readSource
+ * multiple times.
+ * @param that points to the Source.
+ * @param buffer points to the buffer into which data is read.
+ * @param size is the size of the buffer in octets.
+ * @return the number of octets actually read.
+ */
+extern size_t readsSource(Source * that, void * buffer, size_t size);
+
 #endif
