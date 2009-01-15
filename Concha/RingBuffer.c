@@ -19,8 +19,8 @@ int readRingBuffer(Source * that) {
     char * consumer;
 
 #if DEBUG
-    printf("read size=%lu reads=%lu writes=%lu\n",
-        tp->size, tp->reads, tp->writes);
+    fprintf(stderr, "%s[%d}: read size=%lu reads=%lu writes=%lu\n",
+        __FILE__, __LINE__, tp->size, tp->reads, tp->writes);
 #endif
 
     if ((tp->writes - tp->reads) == 0) {
@@ -32,8 +32,8 @@ int readRingBuffer(Source * that) {
     }
 
 #if DEBUG
-    printf("read size=%lu reads=%lu writes=%lu data=0x%x\n",
-        tp->size, tp->reads, tp->writes, data);
+    fprintf(stderr, "%s[%d}: read size=%lu reads=%lu writes=%lu data=0x%x\n",
+        __FILE__, __LINE__, tp->size, tp->reads, tp->writes, data);
 #endif
 
 	return data;
@@ -45,8 +45,8 @@ int pushRingBuffer(Source * that, char data) {
     char * consumer;
 
 #if DEBUG
-    printf("push size=%lu reads=%lu writes=%lu data=0x%x\n",
-        tp->size, tp->reads, tp->writes, data);
+    fprintf(stderr, "%s[%d}: push size=%lu reads=%lu writes=%lu data=0x%x\n",
+        __FILE__, __LINE__, tp->size, tp->reads, tp->writes, data);
 #endif
 
     if ((tp->writes - tp->reads) >= tp->size) {
@@ -59,8 +59,8 @@ int pushRingBuffer(Source * that, char data) {
     }
 
 #if DEBUG
-    printf("push size=%lu reads=%lu writes=%lu rc=0x%x\n",
-        tp->size, tp->reads, tp->writes, rc);
+    fprintf(stderr, "%s[%d}: push size=%lu reads=%lu writes=%lu rc=0x%x\n",
+        __FILE__, __LINE__, tp->size, tp->reads, tp->writes, rc);
 #endif
 
     return rc;
@@ -72,8 +72,8 @@ int writeRingBuffer(Sink * that, char data) {
     char * producer;
 
 #if DEBUG
-    printf("write size=%lu reads=%lu writes=%lu data=0x%x\n",
-        tp->size, tp->reads, tp->writes, data);
+    fprintf(stderr, "%s[%d}: write size=%lu reads=%lu writes=%lu data=0x%x\n",
+        __FILE__, __LINE__, tp->size, tp->reads, tp->writes, data);
 #endif
 
     if ((tp->writes - tp->reads) >= tp->size) {
@@ -86,8 +86,8 @@ int writeRingBuffer(Sink * that, char data) {
     }
 
 #if DEBUG
-    printf("write size=%lu reads=%lu writes=%lu rc=0x%x\n",
-        tp->size, tp->reads, tp->writes, rc);
+    fprintf(stderr, "%s[%d}: write size=%lu reads=%lu writes=%lu rc=0x%x\n",
+        __FILE__, __LINE__, tp->size, tp->reads, tp->writes, rc);
 #endif
  
 	return rc;
