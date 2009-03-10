@@ -198,10 +198,10 @@ test:	unittest-suite
 
 ########## Dependencies
 
-depend:	dependencies.mk
+depend:
+	$(CC) $(CPPFLAGS) -M -MG $(ALLCFILES) > dependencies.mk
 
 dependencies.mk:	Makefile $(ALLCFILES) $(ALLHFILES)
 	$(CC) $(CPPFLAGS) -M -MG $(ALLCFILES) > dependencies.mk
 
 include dependencies.mk
-
