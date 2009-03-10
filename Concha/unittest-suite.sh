@@ -75,9 +75,14 @@ export PATH=$PATH:.
 	unittest-eighteen < lesser.txt > output.txt || exit $?
 	diff lesser.txt output.txt || exit $?
 
+	echo "unit test 19"
+	unittest-nineteen < lesser.txt > output.txt || exit $?
+	diff lesser.txt output.txt || exit $?
+
 	rm -f output*.txt
 	exit 0
 )
+
 RC=$?
 if [ $RC -eq 0 ]; then
 	echo "unit test PASSED."
