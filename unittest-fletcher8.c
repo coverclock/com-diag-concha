@@ -21,7 +21,7 @@ int main(int argc, char * argv[]) {
 
     size = fletcher8(stdin, &a, &b);
 
-    fprintf(stderr, "%s: octets=%lu a=0x%02x b=0x%02x\n", argv[0], size, a, b);
+    fprintf(stderr, "%s: octets=%u a=0x%02x b=0x%02x\n", argv[0], size, a, b);
 
     return 0;
 }
