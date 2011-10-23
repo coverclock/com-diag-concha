@@ -3,15 +3,15 @@
 /**
  * @file
  *
- * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "StreamSource.h"
-#include "StreamSink.h"
-#include "copySourceToSink.h"
+#include "com/diag/concha/StreamSource.h"
+#include "com/diag/concha/StreamSink.h"
+#include "com/diag/concha/copySourceToSink.h"
 
 int main(int argc, char * argv[]) {
     int xc = 0;

@@ -8,8 +8,8 @@
 ROOT		=	Concha
 PROJECT		=	concha
 
-MAJOR		=	0
-MINOR		=	5
+MAJOR		=	1
+MINOR		=	0
 BUILD		=	0
 
 TIMESTAMP	=	$(shell date -u +%Y%m%d%H%M%S%N%Z)
@@ -36,7 +36,7 @@ AR		=	$(CROSS_COMPILE)ar
 RANLIB		=	$(CROSS_COMPILE)ranlib
 
 ARFLAGS		=	rcv
-CPPFLAGS	=	# -DDEBUG
+CPPFLAGS	=	-Iinclude# -DDEBUG
 CXXFLAGS	=	$(CARCH) -g
 CFLAGS		=	$(CARCH) -g
 CPFLAGS		=	-i
@@ -201,7 +201,4 @@ test:	unittest-suite
 depend:
 	$(CC) $(CPPFLAGS) -M -MG $(ALLCFILES) > dependencies.mk
 
-dependencies.mk:	Makefile $(ALLCFILES) $(ALLHFILES)
-	$(CC) $(CPPFLAGS) -M -MG $(ALLCFILES) > dependencies.mk
-
-include dependencies.mk
+-include dependencies.mk

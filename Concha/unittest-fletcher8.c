@@ -3,13 +3,13 @@
 /**
  * @file
  *
- * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "fletcher8.h"
+#include "com/diag/concha/fletcher8.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <sys/types.h>
