@@ -3,15 +3,15 @@
 /**
  * @file
  *
- * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
 #include <stdio.h>
-#include "NullSource.h"
-#include "NullSink.h"
+#include "com/diag/concha/NullSource.h"
+#include "com/diag/concha/NullSink.h"
 
 int main(int argc, char * argv[]) {
     int rc;

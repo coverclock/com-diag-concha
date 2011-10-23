@@ -3,13 +3,13 @@
 /**
  * @file
  *
- * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
  */
 
-#include "DescriptorSpanningSource.h"
+#include "com/diag/concha/DescriptorSpanningSource.h"
 #include <unistd.h>
 #include <stdio.h>
 

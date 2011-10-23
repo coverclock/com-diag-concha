@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2009 Digital Aggregates Corporation, Arvada CO 80001-0587 USA<BR>
+ * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -15,13 +15,13 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include "source2sink.h"
-#include "FileSource.h"
-#include "FileSink.h"
-#include "BoundedSource.h"
-#include "ExpanderSink.h"
-#include "UnclosingSource.h"
-#include "UnclosingSink.h"
+#include "com/diag/concha/source2sink.h"
+#include "com/diag/concha/FileSource.h"
+#include "com/diag/concha/FileSink.h"
+#include "com/diag/concha/BoundedSource.h"
+#include "com/diag/concha/ExpanderSink.h"
+#include "com/diag/concha/UnclosingSource.h"
+#include "com/diag/concha/UnclosingSink.h"
 
 int main(int argc, char * argv[]) {
     int rc;
