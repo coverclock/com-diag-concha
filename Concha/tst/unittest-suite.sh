@@ -1,6 +1,6 @@
 #! /bin/sh
-export LD_LIBRARY_PATH=.
-export PATH=$PATH:.
+export LD_LIBRARY_PATH
+export PATH
 (
 	echo "unit test 1"
 	unittest-one < lesser.txt > output.txt || exit $?
