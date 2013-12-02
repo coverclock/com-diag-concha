@@ -121,9 +121,9 @@ PROJECTXX_SO		=	lib$(PROJECT)xx.so
 PROJECT_LIB			=	$(PROJECT_SO).$(MAJOR).$(MINOR).$(BUILD)
 PROJECTXX_LIB		=	$(PROJECTXX_SO).$(MAJOR).$(MINOR).$(BUILD)
 
-UTILITIES			=	dbdi dcscope dgdb diminuto dlib
+UTILITIES			=	
 GENERATED			=	vintage setup
-ALIASES				=	hex oct ntohs htons ntohl htonl
+ALIASES				=	
 
 TARGETOBJECTS		=	$(addprefix $(OUT)/,$(addsuffix .o,$(basename $(wildcard $(SRC_DIR)/*.c))))
 TARGETOBJECTSXX		=	$(addprefix $(OUT)/,$(addsuffix .o,$(basename $(wildcard $(SRC_DIR)/*.cpp))))
@@ -421,18 +421,11 @@ $(OUT)/$(BIN_DIR)/%:	$(OUT)/$(SYM_DIR)/%
 
 depend:
 	cp /dev/null dependencies.mk
-	for S in $(SRC_DIR) $(MOD_DIR) $(DRV_DIR) $(TST_DIR); do \
+	for S in $(SRC_DIR) $(TST_DIR); do \
 		for F in $$S/*.c; do \
 			D=`dirname $$F`; \
 			echo -n "$(OUT)/$$D/" >> dependencies.mk; \
 			$(CC) $(CPPFLAGS) -MM -MG $$F >> dependencies.mk; \
-		done; \
-	done
-	for S in $(SRC_DIR) $(TST_DIR); do \
-		for F in $$S/*.cpp; do \
-			D=`dirname $$F`; \
-			echo -n "$(OUT)/$$D/" >> dependencies.mk; \
-			$(CXX) $(CPPFLAGS) -MM -MG $$F >> dependencies.mk; \
 		done; \
 	done
 
