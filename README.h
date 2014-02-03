@@ -47,9 +47,12 @@
 
     ABSTRACT
 
-    This file is part of the Digital Aggregates Corporation Concha
-    library. Concha illustrates how to exploit abstraction, encapsulation,
-    inheritance, and polymorphism in ANSI C.
+    This file is part of the Digital Aggregates Corporation Concha package.
+    Concha illustrates how to exploit abstraction, encapsulation, inheritance,
+    and polymorphism in ANSI C. The ideas behind Concha are based on work the
+    author did for one of the Corporation's clients, but is a fully clean
+    room reimplementation and is in fact completely incompatible with that
+    prior commercial intellectual property.
 
     This software is an original work of its authors.
 
