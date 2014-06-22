@@ -1,4 +1,4 @@
-# Copyright 2009-2013 Digital Aggregates Corporation, Colorado, USA
+# Copyright 2009-2014 Digital Aggregates Corporation, Colorado, USA
 # Licensed under the terms in README.h
 # Chip Overclock
 # mailto:coverclock@diag.com
@@ -32,7 +32,7 @@ BUILD				=	1# Only bugs fixed with no API changes or new functionality.
 VINTAGE				:=	$(shell date -u +%Y-%m-%dT%H:%M:%S.%N%z)
 
 # This stuff all gets embedded in the vintage application.
-COPYRIGHT			=	2013 Digital Aggregates Corporation, Colorado, USA.
+COPYRIGHT			=	2014 Digital Aggregates Corporation, Colorado, USA.
 LICENSE				=	GNU Lesser General Public License 2.1
 CONTACT				=	coverclock@diag.com
 HOMEPAGE			=	http://www.diag.com/navigation/downloads/$(TITLE).html
@@ -307,22 +307,22 @@ $(OUT)/$(GEN_DIR)/vintage.c:	$(INC_DIR)/com/diag/$(PROJECT)/$(PROJECT)_release.h
 	echo '#include "com/diag/$(PROJECT)/$(PROJECT)_vintage.h"' >> $@
 	echo '#include <stdio.h>' >> $@
 	echo 'static const char METADATA[] =' >> $@
-	echo "\"Title = $(TITLE)\\n\"" >> $@
-	echo "\"Copyright = $(COPYRIGHT)\\n\"" >> $@
-	echo "\"Contact = $(CONTACT)\\n\"" >> $@
-	echo "\"License = $(LICENSE)\\n\"" >> $@
-	echo "\"Homepage = $(HOMEPAGE)\\n\"" >> $@
-	echo "\"Release = $(MAJOR).$(MINOR).$(BUILD)\\n\"" >> $@
-	echo "\"Vintage = $(VINTAGE)\\n\"" >> $@
-	echo "\"Host = $(shell hostname)\\n\"" >> $@
-	echo "\"Directory = $(shell pwd)\\n\"" >> $@
-	echo "\"Arch = $(ARCH)\\n\"" >> $@
-	echo "\"Target = $(TARGET)\\n\"" >> $@
-	echo "\"Platform = $(PLATFORM)\\n\"" >> $@
-	echo "\"Toolchain = $(TOOLCHAIN)\\n\"" >> $@
+	echo "\"Title = $(TITLE)\\\\n\"" >> $@
+	echo "\"Copyright = $(COPYRIGHT)\\\\n\"" >> $@
+	echo "\"Contact = $(CONTACT)\\\\n\"" >> $@
+	echo "\"License = $(LICENSE)\\\\n\"" >> $@
+	echo "\"Homepage = $(HOMEPAGE)\\\\n\"" >> $@
+	echo "\"Release = $(MAJOR).$(MINOR).$(BUILD)\\\\n\"" >> $@
+	echo "\"Vintage = $(VINTAGE)\\\\n\"" >> $@
+	echo "\"Host = $(shell hostname)\\\\n\"" >> $@
+	echo "\"Directory = $(shell pwd)\\\\n\"" >> $@
+	echo "\"Arch = $(ARCH)\\\\n\"" >> $@
+	echo "\"Target = $(TARGET)\\\\n\"" >> $@
+	echo "\"Platform = $(PLATFORM)\\\\n\"" >> $@
+	echo "\"Toolchain = $(TOOLCHAIN)\\\\n\"" >> $@
 	$(VINFO) | awk '/^$$/ { next; } { gsub(/\"/, "\\\"", $$0); colon = index($$0, ":"); keyword = substr($$0, 1, colon - 1); value = substr($$0, colon + 1); gsub(/ /, "\\\\\\\\ ", keyword); print "\"" keyword " =" value "\\n\""; }' >> $@ || true
 	echo ';' >> $@
-	echo 'int main(void) { fputs(METADATA, stderr); fputs("$(MAJOR).$(MINOR).$(BUILD)\n", stdout); return 0; }' >> $@
+	echo 'int main(void) { fputs(METADATA, stderr); fputs("$(MAJOR).$(MINOR).$(BUILD)\\n", stdout); return 0; }' >> $@
 
 # For embedding in an application where it can be interrogated or displayed.
 $(INC_DIR)/com/diag/$(PROJECT)/$(PROJECT)_release.h:
