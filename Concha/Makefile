@@ -15,7 +15,7 @@ TARGET				=	host
 
 MAJOR				=	2# API changes requiring that applications be modified.
 MINOR				=	0# Only functionality or features added with no legacy API changes.
-BUILD				=	1# Only bugs fixed with no API changes or new functionality.
+BUILD				=	2# Only bugs fixed with no API changes or new functionality.
 
 # Some certification, defense, or intelligence agencies (e.g. the U.S. Federal
 # Aviation Administration or FAA) require that software builds for safety
@@ -36,17 +36,6 @@ COPYRIGHT			=	2009-2014 Digital Aggregates Corporation, Colorado, USA.
 LICENSE				=	GNU Lesser General Public License 2.1
 CONTACT				=	coverclock@diag.com
 HOMEPAGE			=	http://www.diag.com/navigation/downloads/$(TITLE).html
-
-# You can change the VINFO make variable into whatever tool you use to extract
-# version information from your source code control system. For example, I
-# use Subversion here, and hence VINFO is the "svn info" command. But elsewhere,
-# I use Git, so maybe I'd use "git describe" in those circumstances. Or maybe
-# I'd have my own shell script. Or I'd just set this to echo some constant
-# string. If you don't have a source code control system, don't sweat it. If
-# the VINFO command fails or does not exist, all that happens is no such version
-# information is included in the Diminuto vintage application.
-VINFO				=	svn info
-#VINFO				=	git describe
 
 # This is where I store collateral associated with projects that I have
 # downloaded off the web and use without alteration. Examples: Linux kernel
@@ -323,7 +312,6 @@ $(OUT)/$(GEN_DIR)/vintage.c:	$(INC_DIR)/com/diag/$(PROJECT)/$(PROJECT)_release.h
 	echo "\"Target = $(TARGET)\\\\n\"" >> $@
 	echo "\"Platform = $(PLATFORM)\\\\n\"" >> $@
 	echo "\"Toolchain = $(TOOLCHAIN)\\\\n\"" >> $@
-	$(VINFO) | awk '/^$$/ { next; } { gsub(/\"/, "\\\"", $$0); colon = index($$0, ":"); keyword = substr($$0, 1, colon - 1); value = substr($$0, colon + 1); gsub(/ /, "\\\\\\\\ ", keyword); print "\"" keyword " =" value "\\n\""; }' >> $@ || true
 	echo ';' >> $@
 	echo 'int main(void) { fputs(METADATA, stderr); fputs("$(MAJOR).$(MINOR).$(BUILD)\\n", stdout); return 0; }' >> $@
 
@@ -347,7 +335,7 @@ $(INC_DIR)/com/diag/$(PROJECT)/$(PROJECT)_vintage.h:
 
 $(OUT)/$(SYM_DIR)/vintage:	$(OUT)/$(GEN_DIR)/vintage.c
 	D=`dirname $@`; test -d $$D || mkdir -p $$D	
-	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $< $(LDFLAGS)
 
 # For sourcing into a bash shell (for example, ". setup").
 $(OUT)/$(BIN_DIR)/setup:	Makefile
