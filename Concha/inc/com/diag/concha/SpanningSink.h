@@ -49,4 +49,12 @@ struct SpanningSink {
  */
 extern ssize_t writeSpanningSink(SpanningSink * that, const void * buffer, size_t size);
 
+/**
+ * Close the SpanningSink. What this means depends upon the Spanning Sink.
+ * Operations performed on a closed Spanning Sink are undefined.
+ * @param that points to the Spanning Sink.
+ * @return 0 for success, <0 otherwise.
+ */
+extern int closeSpanningSink(SpanningSink * that);
+
 #endif

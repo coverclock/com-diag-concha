@@ -18,5 +18,5 @@ ssize_t writeSpanningSink(SpanningSink * that, const void * buffer, size_t size)
 int closeSpanningSink(SpanningSink * that) {
     Sink * tp = (Sink *)that;
 
-	return (*(tp->vp->close))(tp);
+    return (*(tp->vp->close))(tp);
 }
