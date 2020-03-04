@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
+ * Copyright 2009-2020 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -21,7 +21,7 @@ int main(int argc, char * argv[]) {
 
     size = fletcher8(stdin, &a, &b);
 
-    fprintf(stderr, "%s: octets=%u a=0x%02x b=0x%02x\n", argv[0], size, a, b);
+    fprintf(stderr, "%s: octets=%zu a=0x%02x b=0x%02x\n", argv[0], size, a, b);
 
     return 0;
 }

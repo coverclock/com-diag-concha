@@ -49,7 +49,7 @@ SpanningSource * openDescriptorSpanningSource(DescriptorSpanningSource * that, i
     Source * source;
 
 	source = openDescriptorSource(&(that->descriptorsource), fd);
-	that->descriptorsource.source.vp = &vtable;
+	that->descriptorsource.source.vp = &(vtable.base);
 
     return (source == (Source *)0) ? (SpanningSource *)0 : (SpanningSource *)that;
 }

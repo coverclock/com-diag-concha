@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
+ * Copyright 2009-2020 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -35,8 +35,8 @@ int closeCompositeSource(Source * that) {
     int pri;
     int sec;
 
-    pri = closeSink(tp->primary);
-    sec = closeSink(tp->secondary);
+    pri = closeSource(tp->primary);
+    sec = closeSource(tp->secondary);
 
     return ((pri == EOF) || (sec == EOF)) ? EOF : 0;
 }

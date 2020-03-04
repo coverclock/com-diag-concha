@@ -37,7 +37,7 @@ SpanningSink * openDescriptorSpanningSink(DescriptorSpanningSink * that, int fd)
     Sink * sink;
 
 	sink = openDescriptorSink(&(that->descriptorsink), fd);
-	that->descriptorsink.sink.vp = &vtable;
+	that->descriptorsink.sink.vp = &(vtable.base);
 
     return (sink == (Sink *)0) ? (SpanningSink *)0 : (SpanningSink *)that;
 }

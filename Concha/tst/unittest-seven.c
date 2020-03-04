@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * Copyright 2009-2011 Digital Aggregates Corporation, Colorado, USA<BR>
+ * Copyright 2009-2020 Digital Aggregates Corporation, Colorado, USA<BR>
  * Licensed under the terms in README.h<BR>
  * Chip Overclock <coverclock@diag.com><BR>
  * http://www.diag.com/navigation/downloads/Concha.html<BR>
@@ -58,7 +58,7 @@ int main(int argc, char * argv[]) {
         return -rc;
     }
 
-    printf("%u: (0x%02x,0x%02x) (0x%02x,0x%02x) (0x%02x,0x%02x)\n",
+    printf("%zu: (0x%02x,0x%02x) (0x%02x,0x%02x) (0x%02x,0x%02x)\n",
         count, a, b, f8source.a, f8source.b, f8source.y, f8source.z);
 
     if ((f8source.a != a) || (f8source.b != b)) {

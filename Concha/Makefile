@@ -1,4 +1,4 @@
-# Copyright 2009-2014 Digital Aggregates Corporation, Colorado, USA
+# Copyright 2009-2020 Digital Aggregates Corporation, Colorado, USA
 # Licensed under the terms in README.h
 # Chip Overclock
 # mailto:coverclock@diag.com
@@ -14,8 +14,8 @@ TARGET				=	host
 #TARGET				=	cobbler
 
 MAJOR				=	2# API changes requiring that applications be modified.
-MINOR				=	0# Only functionality or features added with no legacy API changes.
-BUILD				=	4# Only bugs fixed with no API changes or new functionality.
+MINOR				=	1# Only functionality or features added with no legacy API changes.
+BUILD				=	0# Only bugs fixed with no API changes or new functionality.
 
 # Some certification, defense, or intelligence agencies (e.g. the U.S. Federal
 # Aviation Administration or FAA) require that software builds for safety
@@ -32,7 +32,7 @@ BUILD				=	4# Only bugs fixed with no API changes or new functionality.
 VINTAGE				:=	$(shell date -u +%Y-%m-%dT%H:%M:%S.%N%z)
 
 # This stuff all gets embedded in the vintage application.
-COPYRIGHT			=	2009-2014 Digital Aggregates Corporation, Colorado, USA.
+COPYRIGHT			=	2009-2020 Digital Aggregates Corporation, Colorado, USA.
 LICENSE				=	GNU Lesser General Public License 2.1
 CONTACT				=	coverclock@diag.com
 HOMEPAGE			=	http://www.diag.com/navigation/downloads/$(TITLE).html
@@ -75,6 +75,7 @@ endif
 
 ARC_DIR				=	arc# Archive files
 BIN_DIR				=	bin# Stripped executable binaries
+DEP_DIR				=	dep# Dependencies
 DOC_DIR				=	doc# Documentation
 DRV_DIR				=	drv# Loadable kernel modules
 ETC_DIR				=	etc# Miscellaneous files
@@ -145,7 +146,7 @@ TARGETPROGRAMS		=	$(TARGETBINARIES) $(TARGETALIASES) $(TARGETUNITTESTS) $(TARGET
 TARGETDEFAULT		=	$(TARGETLIBRARIES) $(TARGETLIBRARIESXX) $(TARGETMODULES) $(TARGETPROGRAMS)
 TARGETPACKAGE		=	$(TARGETDEFAULT) $(TARGETDRIVERS)
 
-BUILDARTIFACTS		=	doxygen-local.cf $(ETC_DIR)/diminuto.sh dependencies.mk
+BUILDARTIFACTS		=	doxygen-local.cf $(ETC_DIR)/diminuto.sh $(OUT)/$(DEP_DIR)/dependencies.mk
 
 COMMAND				=	dummy
 SCRIPT				=	dummy
@@ -426,13 +427,19 @@ $(OUT)/$(BIN_DIR)/%:	$(OUT)/$(SYM_DIR)/%
 .PHONY:	depend
 
 depend:
-	cp /dev/null dependencies.mk
+	mkdir -p $(OUT)/$(DEP_DIR)
+	cp /dev/null $(OUT)/$(DEP_DIR)/dependencies.mk
 	for S in $(SRC_DIR) $(TST_DIR); do \
 		for F in $$S/*.c; do \
 			D=`dirname $$F`; \
-			echo -n "$(OUT)/$$D/" >> dependencies.mk; \
-			$(CC) $(CPPFLAGS) -MM -MG $$F >> dependencies.mk; \
+			echo -n "$(OUT)/$$D/" >> $(OUT)/$(DEP_DIR)/dependencies.mk; \
+			$(CC) $(CPPFLAGS) -MM -MG $$F >> $(OUT)/$(DEP_DIR)/dependencies.mk; \
 		done; \
 	done
 
--include dependencies.mk
+-include $(OUT)/$(DEP_DIR)/dependencies.mk
+
+########## Sanity
+
+sanity:
+	unittest-suite
