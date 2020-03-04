@@ -1,3 +1,4 @@
+# vi: set ts=4 shiftwidth=4:
 # Copyright 2009-2020 Digital Aggregates Corporation, Colorado, USA
 # Licensed under the terms in README.h
 # Chip Overclock
@@ -169,8 +170,6 @@ CPFLAGS				=	-i
 MVFLAGS				=	-i
 LDFLAGS				=	$(LDARCH) -L$(OUT)/lib -l$(PROJECT) -lpthread -lrt -ldl
 LDXXFLAGS			=	$(LDARCH) -L$(OUT)/lib -l$(PROJECT)xx -l$(PROJECT) -lpthread -lrt -ldl
-
-BROWSER				=	firefox
 
 ########## Main Entry Points
 
@@ -367,24 +366,23 @@ implicit:
 
 ########## Documentation
 
-.PHONY:	documentation browse refman manpages
+.PHONY:	documentation documentation-ancillary
+
+DOCCOOKED := $(shell echo $(OUT)/$(DOC_DIR) | sed 's/\//\\\//g')
 
 documentation:
-	sed -e "s/\\\$$Name.*\\\$$/$(MAJOR).$(MINOR).$(BUILD)/" < doxygen.cf > doxygen-local.cf
-	doxygen doxygen-local.cf
-	test -d $(DOC_DIR)/pdf || mkdir -p $(DOC_DIR)/pdf
-	( cd $(DOC_DIR)/latex; $(MAKE) refman.pdf; cp refman.pdf ../pdf )
-	cat $(DOC_DIR)/man/man3/*.3 | groff -man -Tps - > $(DOC_DIR)/pdf/manpages.ps
-	ps2pdf $(DOC_DIR)/pdf/manpages.ps $(DOC_DIR)/pdf/manpages.pdf
+	mkdir -p $(OUT)/$(DOC_DIR)/latex $(OUT)/$(DOC_DIR)/man $(OUT)/$(DOC_DIR)/pdf
+	cat doxygen.cf | \
+		sed -e "s/\\\$$PROJECT_NUMBER\\\$$/$(MAJOR).$(MINOR).$(BUILD)/" | \
+		sed -e "s/\\\$$OUTPUT_DIRECTORY\\\$$/$(DOCCOOKED)/" | \
+		cat > $(OUT)/$(DOC_DIR)/doxygen-local.cf
+	doxygen $(OUT)/$(DOC_DIR)/doxygen-local.cf
 
-browse:
-	$(BROWSER) file:doc/html/index.html
-
-refman:
-	$(BROWSER) file:doc/pdf/refman.pdf
-
-manpages:
-	$(BROWSER) file:doc/pdf/manpages.pdf
+documentation-ancillary:
+	mkdir -p $(OUT)/$(DOC_DIR)/latex $(OUT)/$(DOC_DIR)/man $(OUT)/$(DOC_DIR)/pdf
+	( cd $(OUT)/$(DOC_DIR)/latex; $(MAKE) refman.pdf; cp refman.pdf ../pdf )
+	cat $(OUT)/$(DOC_DIR)/man/man3/*.3 | groff -man -Tps - > $(OUT)/$(DOC_DIR)/pdf/manpages.ps
+	ps2pdf $(OUT)/$(DOC_DIR)/pdf/manpages.ps $(OUT)/$(DOC_DIR)/pdf/manpages.pdf
 
 ########## Submakes
 
