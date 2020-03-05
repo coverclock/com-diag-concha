@@ -22,7 +22,7 @@ This software is an original work of its authors.
 
 # Implementations
 
-* Sink, Source - generic interfaces to write, read, and push.
+* Sink, Source - generic interfaces to write, read, and push a single byte.
 * DescriptorSink, DescriptorSource - implements Sink and Source using a file descriptor or a socket.
 * StreamSink, StreamSource - implements Sink and Source using a FILE * object.
 * FileSink, FileSource - implements a StreamSink and StreamSource using a file.
@@ -31,12 +31,12 @@ This software is an original work of its authors.
 * ClosingSink, ClosingSource - once EOF is observed, it is guaranteed to be returned henchforth.
 * UnclosingSink, UnclosingSource - like Sink and Source except close is ignored.
 * CompositeSource - composites two Sources such that EOF on the first results in that and subsequent reads being redirected to the second.
-* ExpanderSink - composites two Sinks such that writes are done to both.
+* ExpanderSink - composites two Sinks such that each write is done to both.
 * BoundedSink, BoundedSource - implements a Sink and a Source that have a byte limit after which EOF is returned.
 * Fletcher8Sink, Fletcher8Source - implements a Sink that appends a Fletcher8 checksum at EOF, and a Source that checks the Fletcher 8 checksum at input.
 * RingBuffer - implements a Sink and Source against a common ring buffer.
-* SpanningSink, SpanningSource -
-* DescriptorSpanningSink, DescriptorSpanningSource -
+* SpanningSink, SpanningSource - generic interface to write and read a buffer.
+* DescriptorSpanningSink, DescriptorSpanningSource - implements SpanningSink and SpanningSource using a file descriptor or socket.
 
 # Repositories
 
