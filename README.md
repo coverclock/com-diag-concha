@@ -20,6 +20,24 @@ prior commercial intellectual property.
 
 This software is an original work of its authors.
 
+# Abstractions
+
+* Sink, Source
+* DescriptorSink, DescriptorSource
+* StreamSink, StreamSource
+* FileSink, FileSource
+* BufferSink, BufferSource
+* NullSink, NullSource
+* ClosingSink, ClosingSource
+* UnclosingSink, UnclosingSource
+* CompositeSource
+* ExpanderSink,
+* BoundedSink, BoundedSource
+* Fletcher8Sink, Fletcher8Source
+* RingBuffer
+* SpanningSink, SpanningSource
+* DescriptorSpanningSink, DescriptorSpanningSource
+
 # Repositories
 
 <https://github.com/coverclock/com-diag-concha>
