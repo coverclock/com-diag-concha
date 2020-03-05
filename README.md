@@ -20,23 +20,23 @@ prior commercial intellectual property.
 
 This software is an original work of its authors.
 
-# Abstractions
+# Implementations
 
-* Sink, Source
-* DescriptorSink, DescriptorSource
-* StreamSink, StreamSource
-* FileSink, FileSource
-* BufferSink, BufferSource
-* NullSink, NullSource
-* ClosingSink, ClosingSource
-* UnclosingSink, UnclosingSource
-* CompositeSource
-* ExpanderSink,
-* BoundedSink, BoundedSource
-* Fletcher8Sink, Fletcher8Source
-* RingBuffer
-* SpanningSink, SpanningSource
-* DescriptorSpanningSink, DescriptorSpanningSource
+* Sink, Source - generic interfaces to write, read, and push.
+* DescriptorSink, DescriptorSource - implements Sink and Source using a file descriptor or a socket.
+* StreamSink, StreamSource - implements Sink and Source using a FILE * object.
+* FileSink, FileSource - implements a StreamSink and StreamSource using a file.
+* BufferSink, BufferSource - implements Sink and Source using a fixed buffer.
+* NullSink, NullSource - implements a Sink that is the bit bucket, and a Source that always returns EOF.
+* ClosingSink, ClosingSource - once EOF is observed, it is guaranteed to be returned henchforth.
+* UnclosingSink, UnclosingSource - like Sink and Source except close is ignored.
+* CompositeSource - composites two Sources such that EOF on the first results in that and subsequent reads being redirected to the second.
+* ExpanderSink - composites two Sinks such that writes are done to both.
+* BoundedSink, BoundedSource - implements a Sink and a Source that have a byte limit after which EOF is returned.
+* Fletcher8Sink, Fletcher8Source - implements a Sink that appends a Fletcher8 checksum at EOF, and a Source that checks the Fletcher 8 checksum at input.
+* RingBuffer - implements a Sink and Source against a common ring buffer.
+* SpanningSink, SpanningSource -
+* DescriptorSpanningSink, DescriptorSpanningSource -
 
 # Repositories
 
